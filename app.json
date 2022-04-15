@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "cryptofacts-react-native",
-    "slug": "cryptofacts-react-native",
+    "name": "CoinFacts",
+    "slug": "coinfacts-react-native",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

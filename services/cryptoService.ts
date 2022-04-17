@@ -28,7 +28,7 @@ const formatMarketData = (data: Coin[]) => {
   return formattedData;
 };
 
-const getMarketData = async () => {
+export const getMarketData = async () => {
   try {
     const response = await axios.get(
       "https://api.coingecko.com/api/v3/coins/markets?vs_currency=cad&order=market_cap_desc&per_page=100&page=1&sparkline=true&price_change_percentage=7d"
@@ -41,4 +41,38 @@ const getMarketData = async () => {
   }
 };
 
-export default getMarketData;
+export const getQueryResults = async (query: string) => {
+  try {
+    const response = await axios.get(
+      "https://api.coingecko.com/api/v3/search?query=" + query
+    );
+    const data = response.data;
+    return data;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getCoin = async (id: string) => {
+  try {
+    const response = await axios.get(
+      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=cad&ids=" + id
+    );
+    const data = response.data;
+    return data;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getTrending = async () => {
+  try {
+    const response = await axios.get(
+      "https://api.coingecko.com/api/v3/search/trending"
+    );
+    const data = response.data;
+    return data;
+  } catch (error) {
+    console.log(error.message);
+  }
+};

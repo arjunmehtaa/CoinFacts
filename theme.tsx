@@ -2,17 +2,18 @@ const colors = {
   black: "#000000",
   blue: "#0F52BA",
   green: "#009E60",
-  grey: "#444444",
+  grey: "#666666",
   red: "#D2042D",
   white: "#FFFFFF",
   lightGrey: "#999999",
+  darkGrey: "#444444",
   translucentGrey: "#00000008",
 };
 
 const fontSizes = {
-  small: 14,
-  medium: 18,
-  large: 36,
+  small: 13,
+  medium: 16,
+  large: 24,
 };
 
 const image = {

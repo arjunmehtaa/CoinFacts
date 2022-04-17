@@ -1,1 +1,6 @@
-export { default as getMarketData } from "./cryptoService";
+export {
+  getMarketData,
+  getQueryResults,
+  getCoin,
+  getTrending,
+} from "./cryptoService";

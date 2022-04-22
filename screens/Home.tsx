@@ -31,10 +31,10 @@ const Home = () => {
         <>
           <PlaceholderSearchBar
             onPress={() => {
-              navigate("Search" as never, { screen: "Search" } as never);
+              navigate("SearchStack" as never, { screen: "Search" } as never);
             }}
           />
-          <CoinFlatList data={data} />
+          <CoinFlatList data={data} fromSearch={false} />
         </>
       )}
     </SafeAreaView>

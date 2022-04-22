@@ -8,16 +8,17 @@ const { paddings } = theme;
 
 interface Props {
   data: Coin[];
+  fromSearch: boolean;
 }
 
-const CoinFlatList = ({ data }: Props) => {
+const CoinFlatList = ({ data, fromSearch }: Props) => {
   return (
     <FlatList
       keyExtractor={(item) => item.id}
       keyboardShouldPersistTaps="handled"
       contentContainerStyle={{ paddingBottom: paddings.medium }}
       data={data}
-      renderItem={({ item }) => <Card coin={item} />}
+      renderItem={({ item }) => <Card coin={item} fromSearch={fromSearch} />}
       overScrollMode="never"
     />
   );

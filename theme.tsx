@@ -1,6 +1,10 @@
+const button = {
+  height: 52,
+};
+
 const colors = {
   black: "#000000",
-  blue: "#0F52BA",
+  blue: "#1E90FF",
   green: "#009E60",
   grey: "#666666",
   red: "#D2042D",
@@ -14,6 +18,7 @@ const fontSizes = {
   small: 13,
   medium: 16,
   large: 24,
+  xlarge: 40,
 };
 
 const image = {
@@ -25,6 +30,7 @@ const margins = {
   small: 4,
   medium: 8,
   large: 16,
+  xlarge: 24,
 };
 
 const paddings = {
@@ -38,6 +44,7 @@ const roundedComponent = {
 };
 
 const theme = {
+  button,
   colors,
   fontSizes,
   image,

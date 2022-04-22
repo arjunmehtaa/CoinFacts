@@ -24,32 +24,25 @@ const Search = () => {
       const trendingData = await getTrending();
       const { coins } = trendingData;
       coins.forEach(({ item }) => {
-        fetchCoin(item.id, true);
+        fetchCoin(item.id);
       });
       setLoadingTrending(false);
     };
     fetchTrending();
   }, []);
 
-  const fetchCoin = async (id: string, isTrending: boolean) => {
+  const fetchCoin = async (id: string) => {
     const coin = await getCoin(id);
     if (isValidCoin(coin[0])) {
-      if (isTrending) {
-        setTrendingData((trendingData) => [...trendingData, coin[0]]);
-        setTrendingData((trendingData) => sortCoinList(trendingData));
-      } else {
-        setData((data) => [...data, coin[0]]);
-        setData((data) => sortCoinList(data));
-      }
+      setTrendingData((trendingData) => [...trendingData, coin[0]]);
+      setTrendingData((trendingData) => sortCoinList(trendingData));
     }
   };
 
   const fetchQueryResults = async (formattedQuery: string) => {
     const queryResults = await getQueryResults(formattedQuery);
     const { coins } = queryResults;
-    coins.forEach((element: Coin) => {
-      fetchCoin(element.id, false);
-    });
+    setData(coins);
     setLoadingSearch(false);
   };
 
@@ -87,7 +80,7 @@ const Search = () => {
         {loadingTrending ? (
           <LoadingIndicator />
         ) : (
-          <CoinFlatList data={trendingData} />
+          <CoinFlatList data={trendingData} fromSearch={false} />
         )}
       </View>
     );
@@ -102,7 +95,7 @@ const Search = () => {
         ) : (
           <>
             {query.length > 2 ? (
-              <CoinFlatList data={data} />
+              <CoinFlatList data={data} fromSearch={true} />
             ) : (
               <View style={styles.card}>
                 <Text>Search quereies must be 3 or more characters.</Text>

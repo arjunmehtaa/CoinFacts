@@ -1,3 +1,5 @@
+import { StyleSheet } from "react-native";
+
 const button = {
   height: 52,
 };
@@ -18,7 +20,7 @@ const fontSizes = {
   small: 13,
   medium: 16,
   large: 24,
-  xlarge: 40,
+  xlarge: 36,
 };
 
 const image = {
@@ -34,7 +36,8 @@ const margins = {
 };
 
 const paddings = {
-  small: 4,
+  xsmall: 4,
+  small: 8,
   medium: 12,
   large: 16,
 };
@@ -43,9 +46,34 @@ const roundedComponent = {
   borderRadius: 8,
 };
 
+const commonStyles = StyleSheet.create({
+  coinRank: {
+    marginRight: margins.small,
+    backgroundColor: colors.grey + "10",
+    color: colors.grey,
+  },
+  textCard: {
+    backgroundColor: colors.blue + "10",
+    borderRadius: roundedComponent.borderRadius,
+    color: colors.blue,
+    fontWeight: "bold",
+    paddingVertical: paddings.xsmall,
+    paddingHorizontal: paddings.small,
+    marginTop: margins.small,
+  },
+  card: {
+    padding: paddings.medium,
+    marginVertical: margins.medium,
+    marginHorizontal: margins.large,
+    borderRadius: roundedComponent.borderRadius,
+    backgroundColor: colors.translucentGrey,
+  },
+});
+
 const theme = {
   button,
   colors,
+  commonStyles,
   fontSizes,
   image,
   margins,

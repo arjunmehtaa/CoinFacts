@@ -4,7 +4,7 @@ import theme from "../theme";
 import { Coin } from "../model";
 import { useNavigation } from "@react-navigation/native";
 
-const { colors, fontSizes, image, margins, paddings, roundedComponent } = theme;
+const { colors, commonStyles, fontSizes, image, margins } = theme;
 
 interface Props {
   coin: Coin;
@@ -19,7 +19,7 @@ const Card = ({ coin, fromSearch }: Props) => {
 
   return (
     <TouchableOpacity
-      style={styles.card}
+      style={[commonStyles.card, { flexDirection: "row" }]}
       activeOpacity={0.5}
       onPress={() =>
         navigate(
@@ -41,10 +41,18 @@ const Card = ({ coin, fromSearch }: Props) => {
             {coin.name}
           </Text>
           <View style={{ flexDirection: "row" }}>
-            <Text style={[styles.subtitle, styles.rank]}>
+            <Text
+              style={[
+                styles.subtitle,
+                commonStyles.textCard,
+                commonStyles.coinRank,
+              ]}
+            >
               {coin.market_cap_rank}
             </Text>
-            <Text style={styles.subtitle}>{coin.symbol.toUpperCase()}</Text>
+            <Text style={[styles.subtitle, commonStyles.textCard]}>
+              {coin.symbol.toUpperCase()}
+            </Text>
           </View>
         </View>
       </View>
@@ -60,6 +68,7 @@ const Card = ({ coin, fromSearch }: Props) => {
           <Text
             style={[
               styles.subtitle,
+              commonStyles.textCard,
               {
                 backgroundColor: color + "10",
                 borderColor: color,
@@ -79,14 +88,6 @@ const Card = ({ coin, fromSearch }: Props) => {
 };
 
 const styles = StyleSheet.create({
-  card: {
-    backgroundColor: colors.translucentGrey,
-    borderRadius: roundedComponent.borderRadius,
-    flexDirection: "row",
-    marginHorizontal: margins.large,
-    marginVertical: margins.medium,
-    padding: paddings.medium,
-  },
   image: {
     alignSelf: "center",
     height: image.height,
@@ -98,19 +99,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   subtitle: {
-    backgroundColor: colors.blue + "10",
-    borderRadius: roundedComponent.borderRadius,
-    color: colors.blue,
     fontSize: fontSizes.small,
-    fontWeight: "bold",
-    marginTop: margins.small,
-    padding: paddings.small,
-  },
-  rank: {
-    marginRight: margins.small,
-    backgroundColor: colors.grey + "10",
-    borderColor: colors.grey,
-    color: colors.grey,
   },
 });
 

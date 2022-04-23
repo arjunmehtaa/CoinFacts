@@ -6,7 +6,8 @@ import { getCoin } from "../services";
 import { isValidCoin } from "../utils";
 import { LoadingIndicator } from "../components";
 
-const { colors, margins, fontSizes, roundedComponent, paddings } = theme;
+const { colors, commonStyles, margins, fontSizes, roundedComponent, paddings } =
+  theme;
 
 const CoinDetails = ({ route }) => {
   const receivedCoin: Coin = route.params.coin;
@@ -55,15 +56,24 @@ const CoinDetails = ({ route }) => {
         <Image style={styles.image} source={{ uri: imageUri }} />
         <Text style={styles.name}>{coin.name}</Text>
         <View style={{ flexDirection: "row", justifyContent: "center" }}>
-          <Text style={[styles.subtitle, styles.rank]}>
+          <Text
+            style={[
+              styles.subtitle,
+              commonStyles.textCard,
+              commonStyles.coinRank,
+            ]}
+          >
             {coin.market_cap_rank}
           </Text>
-          <Text style={styles.subtitle}>{coin.symbol.toUpperCase()}</Text>
+          <Text style={[styles.subtitle, commonStyles.textCard]}>
+            {coin.symbol.toUpperCase()}
+          </Text>
         </View>
         <Text style={styles.price}>${coin.current_price}</Text>
         <Text
           style={[
             styles.subtitle,
+            commonStyles.textCard,
             {
               backgroundColor: color + "10",
               borderColor: color,
@@ -75,7 +85,7 @@ const CoinDetails = ({ route }) => {
             coin.price_change_percentage_24h.toFixed(2)}
           %
         </Text>
-        <View style={styles.card}>
+        <View style={[commonStyles.card, { marginVertical: margins.large }]}>
           <Row heading={"Market Cap"} value={"$" + coin.market_cap} />
           {coin.fully_diluted_valuation ? (
             <Row
@@ -126,35 +136,15 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   subtitle: {
-    backgroundColor: colors.blue + "10",
-    borderRadius: roundedComponent.borderRadius,
-    textAlign: "center",
     alignSelf: "center",
-    color: colors.blue,
     fontSize: fontSizes.medium,
-    fontWeight: "bold",
-    marginTop: margins.medium,
     marginHorizontal: margins.small,
-    paddingVertical: paddings.small,
-    paddingHorizontal: paddings.medium,
-  },
-  rank: {
-    marginRight: margins.small,
-    backgroundColor: colors.grey + "10",
-    borderColor: colors.grey,
-    color: colors.grey,
   },
   price: {
-    fontSize: 36,
+    fontSize: fontSizes.xlarge,
     fontWeight: "bold",
     marginTop: margins.large,
     textAlign: "center",
-  },
-  card: {
-    backgroundColor: colors.translucentGrey,
-    borderRadius: roundedComponent.borderRadius,
-    margin: margins.large,
-    padding: paddings.medium,
   },
   row: {
     flexDirection: "row",

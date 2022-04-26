@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
-import SearchIcon from "../assets/search.svg";
+import SearchIcon from "../assets/icons/search.svg";
 import theme from "../theme";
 
 const { colors, fontSizes, margins, paddings, roundedComponent } = theme;

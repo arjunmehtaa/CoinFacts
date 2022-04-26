@@ -1,20 +1,13 @@
-import {
-  View,
-  StyleSheet,
-  Text,
-  SafeAreaView,
-  Image,
-  Dimensions,
-} from "react-native";
+import { View, StyleSheet, Text, SafeAreaView, Image } from "react-native";
 import React, { useEffect, useState } from "react";
 import { CoinFlatList, LoadingIndicator, SearchBar } from "../components";
 import { getCoin, getQueryResults, getTrending } from "../services";
 import theme from "../theme";
 import { Coin } from "../model";
-import TrendingIcon from "../assets/trending.svg";
+import TrendingIcon from "../assets/icons/trending.svg";
 import { isValidCoin, sortCoinList } from "../utils";
 
-const { colors, commonStyles, fontSizes, margins } = theme;
+const { colors, fontSizes, margins } = theme;
 
 const Search = () => {
   const [data, setData] = useState<Coin[]>([]);
@@ -107,7 +100,7 @@ const Search = () => {
         <View style={{ marginHorizontal: margins.large }}>
           <Image
             style={styles.imageStyle}
-            source={require("../assets/no-search.png")}
+            source={require("../assets/illustrations/no-search.png")}
           />
         </View>
         <Text style={styles.subtitle}>

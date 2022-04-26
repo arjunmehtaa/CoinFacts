@@ -14,7 +14,7 @@ interface Props {
 const CoinFlatList = ({ data, fromSearch }: Props) => {
   return (
     <FlatList
-      keyExtractor={(item) => item.id.toString()}
+      keyExtractor={(item) => item.id}
       keyboardShouldPersistTaps="handled"
       contentContainerStyle={{ paddingBottom: paddings.medium }}
       data={data}

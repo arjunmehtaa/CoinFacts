@@ -13,12 +13,13 @@ import {
 import React, { useState } from "react";
 import { AuthContext } from "../contexts/UserContext";
 import theme from "../theme";
-import EmailIcon from "../assets/email.svg";
-import PasswordIcon from "../assets/password.svg";
-import VisibilityOnIcon from "../assets/visibilityOn.svg";
-import VisibilityOffIcon from "../assets/visibilityOff.svg";
+import EmailIcon from "../assets/icons/email.svg";
+import PasswordIcon from "../assets/icons/password.svg";
+import VisibilityOnIcon from "../assets/icons/visibilityOn.svg";
+import VisibilityOffIcon from "../assets/icons/visibilityOff.svg";
+import { Heading } from "../components";
 
-const { colors, commonStyles, margins, fontSizes } = theme;
+const { colors, commonStyles, margins, fontSizes, paddings } = theme;
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -51,9 +52,9 @@ const Login = () => {
       <>
         <TouchableOpacity
           onPress={() => handleSignIn(email, password)}
-          style={[commonStyles.card, styles.button]}
+          style={[commonStyles.card, commonStyles.button]}
         >
-          <Text style={styles.buttonText}>
+          <Text style={commonStyles.buttonText}>
             {isRegister ? "Register" : "Login"}
           </Text>
         </TouchableOpacity>
@@ -111,7 +112,7 @@ const Login = () => {
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView>
-        <Text style={styles.title}>{isRegister ? "Register" : "Login"}</Text>
+        <Heading title={isRegister ? "Register" : "Login"} />
         <TouchableOpacity
           style={[commonStyles.card, { flexDirection: "row" }]}
           onPress={() => emailInputRef.current?.focus()}
@@ -162,8 +163,8 @@ const Login = () => {
         style={styles.imageStyle}
         source={
           isRegister
-            ? require("../assets/register.png")
-            : require("../assets/login.png")
+            ? require("../assets/illustrations/register.png")
+            : require("../assets/illustrations/login.png")
         }
       />
     </SafeAreaView>
@@ -183,20 +184,9 @@ const styles = StyleSheet.create({
     marginVertical: margins.xlarge,
     color: colors.darkGrey,
   },
-  button: {
-    justifyContent: "center",
-    backgroundColor: colors.blue,
-    marginTop: margins.xlarge,
-  },
-  buttonText: {
-    textAlign: "center",
-    fontWeight: "bold",
-    fontSize: fontSizes.medium,
-    color: colors.white,
-  },
   footerText: {
-    marginTop: margins.medium,
-    marginBottom: margins.large,
+    paddingTop: paddings.small,
+    paddingBottom: paddings.large,
     fontSize: 14,
     fontWeight: "bold",
     color: colors.lightGrey,

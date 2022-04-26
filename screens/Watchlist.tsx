@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, SafeAreaView } from "react-native";
+import { View, StyleSheet, SafeAreaView } from "react-native";
 import React, { useEffect, useState } from "react";
 import { getDatabase, onValue, ref } from "@firebase/database";
 import { getAuth } from "firebase/auth";
@@ -6,9 +6,9 @@ import { Coin } from "../model";
 import { getCoin } from "../services";
 import { isValidCoin, sortCoinList } from "../utils";
 import theme from "../theme";
-import { CoinFlatList, LoadingIndicator } from "../components";
+import { CoinFlatList, Heading, LoadingIndicator } from "../components";
 
-const { colors, fontSizes, margins } = theme;
+const { colors, margins } = theme;
 
 const Watchlist = () => {
   const [data, setData] = useState<Coin[]>([]);
@@ -42,6 +42,7 @@ const Watchlist = () => {
           watchlist.substring(1, watchlist.length - 1).split(";;")
         );
       } else {
+        setData([]);
         setLoading(false);
       }
     });
@@ -51,11 +52,7 @@ const Watchlist = () => {
     <SafeAreaView style={styles.container}>
       <View style={{ flex: 1 }}>
         <View style={{ flexDirection: "row" }}>
-          <Text style={[styles.title, {}]}>Watchlist</Text>
-          {/* <TrendingIcon
-            style={{ alignSelf: "center" }}
-            fill={colors.darkGrey}
-          /> */}
+          <Heading title="Watchlist" style={{ marginBottom: margins.small }} />
         </View>
         {loading ? (
           <LoadingIndicator />
@@ -71,15 +68,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
     flex: 1,
-    justifyContent: "flex-start",
-  },
-  title: {
-    fontWeight: "bold",
-    fontSize: fontSizes.xlarge,
-    marginHorizontal: margins.large,
-    marginTop: margins.xlarge,
-    marginBottom: margins.small,
-    color: colors.darkGrey,
   },
 });
 

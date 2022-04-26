@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, TextInput, TouchableOpacity } from "react-native";
-import SearchIcon from "../assets/search.svg";
-import Cancel from "../assets/cancel.svg";
+import SearchIcon from "../assets/icons/search.svg";
+import Cancel from "../assets/icons/cancel.svg";
 import theme from "../theme";
 import { useIsFocused } from "@react-navigation/native";
 

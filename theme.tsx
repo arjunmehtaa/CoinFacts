@@ -14,6 +14,8 @@ const colors = {
   lightGrey: "#999999",
   darkGrey: "#444444",
   translucentGrey: "#00000008",
+  translucentRed: "#fdeef3",
+  translucentGreen: "#e8f2ef",
 };
 
 const fontSizes = {
@@ -67,6 +69,17 @@ const commonStyles = StyleSheet.create({
     marginHorizontal: margins.large,
     borderRadius: roundedComponent.borderRadius,
     backgroundColor: colors.translucentGrey,
+  },
+  button: {
+    justifyContent: "center",
+    backgroundColor: colors.blue,
+    marginTop: margins.xlarge,
+  },
+  buttonText: {
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: fontSizes.medium,
+    color: colors.white,
   },
 });
 

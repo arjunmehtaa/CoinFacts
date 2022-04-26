@@ -11,17 +11,17 @@ import {
   CoinDetails,
   Home,
   Login,
-  Profile,
+  Settings,
   Search,
   Watchlist,
 } from "./screens";
 import React, { useEffect, useReducer, useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
-import HomeIcon from "./assets/home.svg";
-import SearchIcon from "./assets/search.svg";
-import AccountIcon from "./assets/account.svg";
-import WatchlistIcon from "./assets/watchlist.svg";
+import HomeIcon from "./assets/icons/home.svg";
+import SearchIcon from "./assets/icons/search.svg";
+import SettingsIcon from "./assets/icons/settings.svg";
+import WatchlistIcon from "./assets/icons/watchlist.svg";
 import theme from "./theme";
 import { createStackNavigator } from "@react-navigation/stack";
 import { initializeApp } from "firebase/app";
@@ -143,11 +143,11 @@ export default function App() {
           }}
         />
         <Tab.Screen
-          name="Profile"
-          children={() => <Profile user={loginState.user} />}
+          name="Settings"
+          children={() => <Settings user={loginState.user} />}
           options={{
             tabBarIcon: ({ focused }) => (
-              <AccountIcon
+              <SettingsIcon
                 fill={focused ? colors.black : colors.lightGrey}
                 width={28}
                 height={28}

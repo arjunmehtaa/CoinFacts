@@ -3,6 +3,7 @@ import { StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import SearchIcon from "../assets/search.svg";
 import Cancel from "../assets/cancel.svg";
 import theme from "../theme";
+import { useIsFocused } from "@react-navigation/native";
 
 const { colors, fontSizes, margins, paddings, roundedComponent } = theme;
 
@@ -15,9 +16,12 @@ interface Props {
 const SearchBar = ({ query, handleSearch, handleTextChange }: Props) => {
   const inputRef = React.createRef<TextInput>();
   const [text, setText] = useState("");
+  const isFocused = useIsFocused();
   useEffect(() => {
-    if (text.length === 0) inputRef.current?.focus();
-  });
+    if (isFocused) {
+      if (text.length === 0) inputRef.current?.focus();
+    }
+  }, [isFocused]);
   return (
     <TouchableOpacity
       style={styles.searchContainer}

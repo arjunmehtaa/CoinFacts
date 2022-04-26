@@ -5,8 +5,16 @@ import {
   View,
   ActivityIndicator,
   Alert,
+  LogBox,
 } from "react-native";
-import { CoinDetails, Home, Login, Profile, Search } from "./screens";
+import {
+  CoinDetails,
+  Home,
+  Login,
+  Profile,
+  Search,
+  Watchlist,
+} from "./screens";
 import React, { useEffect, useReducer, useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
@@ -25,6 +33,9 @@ import {
   signOut,
 } from "firebase/auth";
 
+LogBox.ignoreLogs(["Setting a timer"]);
+LogBox.ignoreLogs(["AsyncStorage has been extracted from react-native core"]);
+
 const { colors } = theme;
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -40,7 +51,7 @@ const HomeStack = () => {
       <Stack.Screen
         name="CoinDetails"
         component={CoinDetails}
-        options={{ headerTitle: "" }}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );
@@ -57,13 +68,32 @@ const SearchStack = () => {
       <Stack.Screen
         name="CoinDetails"
         component={CoinDetails}
-        options={{ headerTitle: "" }}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const WatchlistStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Watchlist"
+        component={Watchlist}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="CoinDetails"
+        component={CoinDetails}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );
 };
 
 export default function App() {
+  const [userId, setUserId] = useState("");
+
   const BottomNavigation = () => {
     return (
       <Tab.Navigator
@@ -100,8 +130,8 @@ export default function App() {
           }}
         />
         <Tab.Screen
-          name="Portfolio"
-          component={Home}
+          name="WatchlistStack"
+          component={WatchlistStack}
           options={{
             tabBarIcon: ({ focused }) => (
               <WatchlistIcon

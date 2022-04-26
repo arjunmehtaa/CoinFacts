@@ -23,8 +23,9 @@ const { colors, commonStyles, margins, fontSizes } = theme;
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isRegister, setIsRegister] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const { signIn } = React.useContext(AuthContext);
+  const { signIn, signUp } = React.useContext(AuthContext);
   const emailInputRef = React.createRef<TextInput>();
   const passwordInputRef = React.createRef<TextInput>();
 
@@ -34,7 +35,8 @@ const Login = () => {
     } else if (!password) {
       Alert.alert("Login Failed", "Please enter your password.");
     } else {
-      signIn(email.trim(), password);
+      if (isRegister) signUp(email.trim(), password);
+      else signIn(email.trim(), password);
     }
   };
 
@@ -51,11 +53,24 @@ const Login = () => {
           onPress={() => handleSignIn(email, password)}
           style={[commonStyles.card, styles.button]}
         >
-          <Text style={styles.buttonText}>Login</Text>
+          <Text style={styles.buttonText}>
+            {isRegister ? "Register" : "Login"}
+          </Text>
         </TouchableOpacity>
         <View style={styles.footerContainer}>
-          <Text style={styles.footerText}>New to CoinFacts?</Text>
-          <Text style={[styles.footerText, styles.registerText]}>Register</Text>
+          <Text style={styles.footerText}>
+            {isRegister ? "Already have an account?" : "New to CoinFacts?"}
+          </Text>
+          <Text
+            style={[styles.footerText, styles.registerText]}
+            onPress={() => {
+              isRegister ? setIsRegister(false) : setIsRegister(true);
+              emailInputRef.current?.clear();
+              passwordInputRef.current?.clear();
+            }}
+          >
+            {isRegister ? "Login" : "Register"}
+          </Text>
         </View>
       </>
     );
@@ -96,7 +111,7 @@ const Login = () => {
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView>
-        <Text style={styles.title}>Login</Text>
+        <Text style={styles.title}>{isRegister ? "Register" : "Login"}</Text>
         <TouchableOpacity
           style={[commonStyles.card, { flexDirection: "row" }]}
           onPress={() => emailInputRef.current?.focus()}
@@ -145,7 +160,11 @@ const Login = () => {
       </KeyboardAvoidingView>
       <Image
         style={styles.imageStyle}
-        source={require("../assets/welcome.png")}
+        source={
+          isRegister
+            ? require("../assets/register.png")
+            : require("../assets/login.png")
+        }
       />
     </SafeAreaView>
   );
@@ -198,6 +217,7 @@ const styles = StyleSheet.create({
     height: Dimensions.get("window").height / 2,
     width: undefined,
     aspectRatio: 1,
+    resizeMode: "contain",
     alignSelf: "center",
   },
 });

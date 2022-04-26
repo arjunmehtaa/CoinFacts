@@ -1,14 +1,20 @@
-import { View, StyleSheet, Text, SafeAreaView } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  Image,
+  Dimensions,
+} from "react-native";
 import React, { useEffect, useState } from "react";
-import { LoadingIndicator, SearchBar } from "../components";
+import { CoinFlatList, LoadingIndicator, SearchBar } from "../components";
 import { getCoin, getQueryResults, getTrending } from "../services";
 import theme from "../theme";
 import { Coin } from "../model";
-import CoinFlatList from "../components/CoinFlatList";
 import TrendingIcon from "../assets/trending.svg";
 import { isValidCoin, sortCoinList } from "../utils";
 
-const { colors, fontSizes, margins, paddings, roundedComponent } = theme;
+const { colors, commonStyles, fontSizes, margins } = theme;
 
 const Search = () => {
   const [data, setData] = useState<Coin[]>([]);
@@ -17,6 +23,7 @@ const Search = () => {
   const [loadingTrending, setLoadingTrending] = useState(true);
   const [showTrending, setShowTrending] = useState(true);
   const [query, setQuery] = useState("");
+  const [searchedQuery, setSearchedQuery] = useState("");
 
   useEffect(() => {
     const fetchTrending = async () => {
@@ -53,8 +60,9 @@ const Search = () => {
 
   const handleSearch = (text: string) => {
     const formattedQuery = text.toLowerCase();
+    setSearchedQuery(formattedQuery);
     setShowTrending(false);
-    if (text.length > 2) {
+    if (text.length > 0) {
       setLoadingSearch(true);
       setData([]);
       fetchQueryResults(formattedQuery);
@@ -71,7 +79,9 @@ const Search = () => {
     return (
       <View style={{ flex: 1 }}>
         <View style={{ flexDirection: "row" }}>
-          <Text style={styles.title}>Trending on CoinFacts</Text>
+          <Text style={[styles.title, { marginRight: margins.medium }]}>
+            Trending on CoinFacts
+          </Text>
           <TrendingIcon
             style={{ alignSelf: "center" }}
             fill={colors.darkGrey}
@@ -86,20 +96,47 @@ const Search = () => {
     );
   };
 
+  const renderNoSearchResults = () => {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+        }}
+      >
+        <View style={{ marginHorizontal: margins.large }}>
+          <Image
+            style={styles.imageStyle}
+            source={require("../assets/no-search.png")}
+          />
+        </View>
+        <Text style={styles.subtitle}>
+          We looked far, but we couldn't find that coin.{"\n"}Check the
+          spellings and try again.
+        </Text>
+      </View>
+    );
+  };
+
   const renderSearchResults = () => {
     return (
       <View style={{ flex: 1 }}>
-        <Text style={styles.title}>Search Results</Text>
+        <View style={{ flexDirection: "row" }}>
+          <Text style={styles.title}>Search Results for </Text>
+          <Text style={[styles.title, { marginLeft: 0, color: colors.blue }]}>
+            {searchedQuery}
+          </Text>
+        </View>
         {loadingSearch ? (
           <LoadingIndicator />
         ) : (
           <>
-            {query.length > 2 ? (
-              <CoinFlatList data={data} fromSearch={true} />
+            {data.length > 0 ? (
+              <>
+                <CoinFlatList data={data} fromSearch={true} />
+              </>
             ) : (
-              <View style={styles.card}>
-                <Text>Search quereies must be 3 or more characters.</Text>
-              </View>
+              renderNoSearchResults()
             )}
           </>
         )}
@@ -125,21 +162,26 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
   },
-  card: {
-    backgroundColor: colors.translucentGrey,
-    borderRadius: roundedComponent.borderRadius,
-    flexDirection: "row",
-    marginHorizontal: margins.large,
-    marginVertical: margins.medium,
-    padding: paddings.medium,
-  },
   title: {
     fontSize: fontSizes.large,
     fontWeight: "bold",
     color: colors.darkGrey,
     marginLeft: margins.large,
-    marginRight: margins.medium,
     marginVertical: margins.medium,
+  },
+  imageStyle: {
+    height: undefined,
+    width: "70%",
+    aspectRatio: 1,
+    resizeMode: "contain",
+    alignSelf: "center",
+  },
+  subtitle: {
+    fontSize: fontSizes.medium,
+    fontWeight: "bold",
+    textAlign: "center",
+    alignSelf: "center",
+    color: colors.lightGrey,
   },
 });
 

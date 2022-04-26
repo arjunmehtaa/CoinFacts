@@ -10,9 +10,12 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@firebase/database": "^0.12.8",
     "@react-native-async-storage/async-storage": "^1.17.3",
     "@react-native-community/cli": "^7.0.3",
     "@react-native-community/masked-view": "^0.1.11",
+    "@react-native-firebase/app": "^14.8.0",
+    "@react-native-firebase/database": "^14.8.0",
     "@react-navigation/bottom-tabs": "^6.3.1",
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/stack": "^6.2.1",

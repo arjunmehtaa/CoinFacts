@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import theme from "../theme";
 import { SafeAreaView, StyleSheet } from "react-native";
-import { LoadingIndicator, PlaceholderSearchBar } from "../components";
+import {
+  CoinFlatList,
+  LoadingIndicator,
+  PlaceholderSearchBar,
+} from "../components";
 import { getMarketData } from "../services";
 import { Coin } from "../model";
 import { useNavigation } from "@react-navigation/native";
-import CoinFlatList from "../components/CoinFlatList";
 
 const { colors } = theme;
 

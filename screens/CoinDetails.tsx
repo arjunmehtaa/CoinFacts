@@ -5,15 +5,26 @@ import theme from "../theme";
 import { getCoin } from "../services";
 import { isValidCoin } from "../utils";
 import { LoadingIndicator } from "../components";
+import { getDatabase, onValue, ref, set } from "@firebase/database";
+import { getAuth } from "firebase/auth";
+import BackIcon from "../assets/back.svg";
+import WatchlistIcon from "../assets/watchlist.svg";
+import WatchlistFilledIcon from "../assets/watchlist-filled.svg";
+import { useNavigation } from "@react-navigation/native";
 
-const { colors, commonStyles, margins, fontSizes, roundedComponent, paddings } =
-  theme;
+const { colors, commonStyles, margins, fontSizes } = theme;
 
 const CoinDetails = ({ route }) => {
+  const db = getDatabase();
+  const userId = getAuth().currentUser?.uid;
+  const reference = ref(db, "users/" + userId);
+  const navigation = useNavigation();
   const receivedCoin: Coin = route.params.coin;
   const fromSearch: boolean = route.params.fromSearch;
   const [coin, setCoin] = useState<Coin>(receivedCoin);
   const [loading, setloading] = useState(true);
+  const [isWatched, setIsWatched] = useState(false);
+  const [watchlist, setWatchlist] = useState("");
   const imageUri = coin.image ? coin.image : coin.large;
   const color =
     coin.price_change_percentage_24h > 0 ? colors.green : colors.red;
@@ -35,7 +46,32 @@ const CoinDetails = ({ route }) => {
       }
     };
     shouldFetchCoin();
+    return onValue(reference, (snapshot) => {
+      if (snapshot?.val()?.watchlist) {
+        const watchlistString = snapshot?.val()?.watchlist;
+        setWatchlist(watchlistString);
+        if (watchlistString.includes(";" + coin.id + ";")) {
+          setIsWatched(true);
+        } else {
+          setIsWatched(false);
+        }
+      } else {
+        setIsWatched(false);
+      }
+    });
   }, []);
+
+  const watchlistButtonPressed = () => {
+    if (isWatched) {
+      set(reference, {
+        watchlist: watchlist.replace(";" + coin.id + ";", ""),
+      });
+    } else {
+      set(reference, {
+        watchlist: watchlist + ";" + coin.id + ";",
+      });
+    }
+  };
 
   const Row = ({ heading, value }) => {
     return (
@@ -109,13 +145,29 @@ const CoinDetails = ({ route }) => {
   };
 
   return (
-    <>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <BackIcon onPress={() => navigation.goBack()} height={28} width={28} />
+        {isWatched ? (
+          <WatchlistFilledIcon
+            onPress={() => watchlistButtonPressed()}
+            height={28}
+            width={28}
+          />
+        ) : (
+          <WatchlistIcon
+            onPress={() => watchlistButtonPressed()}
+            height={28}
+            width={28}
+          />
+        )}
+      </View>
       {loading ? (
         <LoadingIndicator />
       ) : (
         <>{isValidCoin(coin) ? renderCoinDetails() : null}</>
       )}
-    </>
+    </View>
   );
 };
 
@@ -123,6 +175,13 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
     flex: 1,
+  },
+  header: {
+    height: 52,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    margin: margins.large,
+    alignItems: "center",
   },
   image: {
     width: 64,

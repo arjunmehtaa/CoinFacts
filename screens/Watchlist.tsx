@@ -1,35 +1,31 @@
-import { View, StyleSheet, SafeAreaView } from "react-native";
+import { View, StyleSheet, SafeAreaView, Image, Text } from "react-native";
 import React, { useEffect, useState } from "react";
 import { getDatabase, onValue, ref } from "@firebase/database";
 import { getAuth } from "firebase/auth";
 import { Coin } from "../model";
-import { getCoin } from "../services";
+import { getCoins } from "../services";
 import { isValidCoin, sortCoinList } from "../utils";
 import theme from "../theme";
 import { CoinFlatList, Heading, LoadingIndicator } from "../components";
 
-const { colors, margins } = theme;
+const { colors, margins, fontSizes } = theme;
 
 const Watchlist = () => {
   const [data, setData] = useState<Coin[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchCoin = async (id: string) => {
-    if (id) {
-      const coin = await getCoin(id);
-      if (isValidCoin(coin[0])) {
-        setData((data) => [...data, coin[0]]);
-        setData((data) => sortCoinList(data));
-      }
-    }
+  const fetchCoins = async (idsArray: string[]) => {
+    const coins = await getCoins(idsArray);
+    setData(coins);
+    setLoading(false);
   };
 
   const fetchWatchlist = (watchlistArray: string[]) => {
-    setData([]);
+    const idsArray: string[] = [];
     watchlistArray.forEach((coinId) => {
-      fetchCoin(coinId);
+      idsArray.push(coinId);
     });
-    setLoading(false);
+    fetchCoins(idsArray);
   };
 
   useEffect(() => {
@@ -48,6 +44,21 @@ const Watchlist = () => {
     });
   }, []);
 
+  const renderEmptyWatchlist = () => {
+    return (
+      <View style={{ flex: 1, justifyContent: "center" }}>
+        <Image
+          style={styles.imageStyle}
+          source={require("../assets/illustrations/no-watchlist.png")}
+        />
+        <Text style={styles.subtitle}>
+          Looks like your watchlist is empty.{"\n"} Add a coin to your watchlist
+          to get started.
+        </Text>
+      </View>
+    );
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={{ flex: 1 }}>
@@ -57,7 +68,13 @@ const Watchlist = () => {
         {loading ? (
           <LoadingIndicator />
         ) : (
-          <CoinFlatList data={data} fromSearch={false} />
+          <>
+            {data.length > 0 ? (
+              <CoinFlatList data={data} />
+            ) : (
+              renderEmptyWatchlist()
+            )}
+          </>
         )}
       </View>
     </SafeAreaView>
@@ -68,6 +85,20 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
     flex: 1,
+  },
+  imageStyle: {
+    height: undefined,
+    width: "70%",
+    aspectRatio: 1,
+    resizeMode: "contain",
+    alignSelf: "center",
+  },
+  subtitle: {
+    fontSize: fontSizes.medium,
+    fontWeight: "bold",
+    textAlign: "center",
+    alignSelf: "center",
+    color: colors.lightGrey,
   },
 });
 

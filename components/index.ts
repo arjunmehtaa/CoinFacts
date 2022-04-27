@@ -5,3 +5,4 @@ export { default as LoadingIndicator } from "./LoadingIndicator";
 export { default as CoinFlatList } from "./CoinFlatList";
 export { default as Heading } from "./Heading";
 export { default as ToastMessage } from "./ToastMessage";
+export { default as RoundedText } from "./RoundedText";

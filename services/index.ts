@@ -1,6 +1,6 @@
 export {
   getMarketData,
   getQueryResults,
-  getCoin,
+  getCoins,
   getTrending,
 } from "./cryptoService";

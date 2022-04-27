@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { Platform, StyleSheet, Text, TouchableOpacity } from "react-native";
 import SearchIcon from "../assets/icons/search.svg";
 import theme from "../theme";
 
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginHorizontal: margins.large,
     marginBottom: margins.medium,
-    marginTop: margins.large,
+    marginTop: Platform.OS === "android" ? margins.large : margins.medium,
     padding: paddings.medium,
   },
   searchInput: {

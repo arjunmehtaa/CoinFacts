@@ -10,9 +10,8 @@ import {
 import React, { useEffect, useState } from "react";
 import { Coin } from "../model";
 import theme from "../theme";
-import { getCoin } from "../services";
 import { isValidCoin } from "../utils";
-import { LoadingIndicator, ToastMessage } from "../components";
+import { RoundedText, ToastMessage } from "../components";
 import { getDatabase, onValue, ref, set } from "@firebase/database";
 import { getAuth } from "firebase/auth";
 import BackIcon from "../assets/icons/back.svg";
@@ -28,10 +27,7 @@ const CoinDetails = ({ route }) => {
   const userId = getAuth().currentUser?.uid;
   const reference = ref(db, "users/" + userId);
   const navigation = useNavigation();
-  const receivedCoin: Coin = route.params.coin;
-  const fromSearch: boolean = route.params.fromSearch;
-  const [coin, setCoin] = useState<Coin>(receivedCoin);
-  const [loading, setloading] = useState(true);
+  const coin: Coin = route.params.coin;
   const [isWatched, setIsWatched] = useState(false);
   const [watchlist, setWatchlist] = useState("");
   const imageUri = coin.image ? coin.image : coin.large;
@@ -39,23 +35,7 @@ const CoinDetails = ({ route }) => {
   const color =
     coin.price_change_percentage_24h > 0 ? colors.green : colors.red;
 
-  const fetchCoin = async (id: string) => {
-    const coin = await getCoin(id);
-    if (isValidCoin(coin[0])) {
-      setCoin(coin[0]);
-      setloading(false);
-    }
-  };
-
   useEffect(() => {
-    const shouldFetchCoin = async () => {
-      if (fromSearch) {
-        fetchCoin(coin.id);
-      } else {
-        setloading(false);
-      }
-    };
-    shouldFetchCoin();
     return onValue(reference, (snapshot) => {
       if (isFocused) {
         if (snapshot?.val()?.watchlist) {
@@ -110,35 +90,29 @@ const CoinDetails = ({ route }) => {
         <Image style={styles.image} source={{ uri: imageUri }} />
         <Text style={styles.name}>{coin.name}</Text>
         <View style={{ flexDirection: "row", justifyContent: "center" }}>
-          <Text
-            style={[
-              styles.subtitle,
-              commonStyles.textCard,
-              commonStyles.coinRank,
-            ]}
-          >
-            {coin.market_cap_rank}
-          </Text>
-          <Text style={[styles.subtitle, commonStyles.textCard]}>
-            {coin.symbol.toUpperCase()}
-          </Text>
+          <RoundedText
+            title={coin.market_cap_rank}
+            color={colors.grey}
+            textStyle={styles.subtitle}
+            containerStyle={{ marginRight: margins.small }}
+          />
+          <RoundedText
+            title={coin.symbol.toUpperCase()}
+            color={colors.blue}
+            textStyle={styles.subtitle}
+          />
         </View>
         <Text style={styles.price}>${coin.current_price}</Text>
-        <Text
-          style={[
-            styles.subtitle,
-            commonStyles.textCard,
-            {
-              backgroundColor: color + "10",
-              borderColor: color,
-              color: color,
-            },
-          ]}
-        >
-          {(coin.price_change_percentage_24h > 0 ? "+" : "") +
-            coin.price_change_percentage_24h.toFixed(2)}
-          %
-        </Text>
+        <RoundedText
+          title={
+            (coin.price_change_percentage_24h > 0 ? "+" : "") +
+            coin.price_change_percentage_24h.toFixed(2) +
+            "%"
+          }
+          color={color}
+          textStyle={styles.subtitle}
+          containerStyle={{ alignSelf: "center" }}
+        />
         <View style={[commonStyles.card, { marginVertical: margins.large }]}>
           <Row heading={"Market Cap"} value={"$" + coin.market_cap} />
           {coin.fully_diluted_valuation ? (
@@ -182,11 +156,7 @@ const CoinDetails = ({ route }) => {
           )}
         </TouchableOpacity>
       </View>
-      {loading ? (
-        <LoadingIndicator />
-      ) : (
-        <>{isValidCoin(coin) ? renderCoinDetails() : null}</>
-      )}
+      {isValidCoin(coin) ? renderCoinDetails() : null}
       <ToastMessage />
     </View>
   );
@@ -221,9 +191,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   subtitle: {
-    alignSelf: "center",
     fontSize: fontSizes.medium,
-    marginHorizontal: margins.small,
   },
   price: {
     fontSize: fontSizes.xlarge,

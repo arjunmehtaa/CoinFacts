@@ -3,15 +3,15 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import theme from "../theme";
 import { Coin } from "../model";
 import { useNavigation } from "@react-navigation/native";
+import RoundedText from "./RoundedText";
 
 const { colors, commonStyles, fontSizes, image, margins } = theme;
 
 interface Props {
   coin: Coin;
-  fromSearch: boolean;
 }
 
-const Card = ({ coin, fromSearch }: Props) => {
+const Card = ({ coin }: Props) => {
   const { navigate } = useNavigation();
   const imageUri = coin.image ? coin.image : coin.large;
   const color =
@@ -24,7 +24,7 @@ const Card = ({ coin, fromSearch }: Props) => {
       onPress={() =>
         navigate(
           "CoinDetails" as never,
-          { screen: "CoinDetails", coin: coin, fromSearch: fromSearch } as never
+          { screen: "CoinDetails", coin: coin } as never
         )
       }
     >
@@ -41,18 +41,15 @@ const Card = ({ coin, fromSearch }: Props) => {
             {coin.name}
           </Text>
           <View style={{ flexDirection: "row" }}>
-            <Text
-              style={[
-                styles.subtitle,
-                commonStyles.textCard,
-                commonStyles.coinRank,
-              ]}
-            >
-              {coin.market_cap_rank}
-            </Text>
-            <Text style={[styles.subtitle, commonStyles.textCard]}>
-              {coin.symbol.toUpperCase()}
-            </Text>
+            <RoundedText
+              title={coin.market_cap_rank}
+              color={colors.grey}
+              containerStyle={{ marginRight: margins.small }}
+            />
+            <RoundedText
+              title={coin.symbol.toUpperCase()}
+              color={colors.blue}
+            />
           </View>
         </View>
       </View>
@@ -65,22 +62,14 @@ const Card = ({ coin, fromSearch }: Props) => {
           }}
         >
           <Text style={styles.title}>${coin.current_price}</Text>
-          <Text
-            style={[
-              styles.subtitle,
-              commonStyles.textCard,
-              {
-                backgroundColor: color + "10",
-                borderColor: color,
-                color: color,
-                textAlign: "right",
-              },
-            ]}
-          >
-            {(coin.price_change_percentage_24h > 0 ? "+" : "") +
-              coin.price_change_percentage_24h.toFixed(2)}
-            %
-          </Text>
+          <RoundedText
+            title={
+              (coin.price_change_percentage_24h > 0 ? "+" : "") +
+              coin.price_change_percentage_24h.toFixed(2) +
+              "%"
+            }
+            color={color}
+          />
         </View>
       ) : null}
     </TouchableOpacity>

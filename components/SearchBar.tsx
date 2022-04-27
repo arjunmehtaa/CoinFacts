@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import {
+  Platform,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 import SearchIcon from "../assets/icons/search.svg";
 import Cancel from "../assets/icons/cancel.svg";
 import theme from "../theme";
@@ -52,16 +57,16 @@ const SearchBar = ({ query, handleSearch, handleTextChange }: Props) => {
         selectionColor={colors.black}
       />
       {query ? (
-        <Cancel
-          width={20}
-          height={20}
-          style={{ alignSelf: "center", marginRight: margins.small }}
+        <TouchableOpacity
+          style={styles.buttonContainer}
           onPress={() => {
             inputRef.current?.clear();
             setText("");
             handleSearch("");
           }}
-        />
+        >
+          <Cancel width={20} height={20} />
+        </TouchableOpacity>
       ) : null}
     </TouchableOpacity>
   );
@@ -75,8 +80,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginHorizontal: margins.large,
     marginBottom: margins.medium,
-    marginTop: margins.large,
-    padding: paddings.medium,
+    marginTop: Platform.OS === "android" ? margins.large : margins.medium,
+    paddingLeft: paddings.medium,
+  },
+  buttonContainer: {
+    height: 48,
+    justifyContent: "center",
+    paddingHorizontal: paddings.medium,
   },
   searchInput: {
     flex: 1,

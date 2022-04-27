@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@firebase/database": "^0.12.8",
-    "@react-native-async-storage/async-storage": "^1.17.3",
+    "@react-native-async-storage/async-storage": "~1.15.0",
     "@react-native-community/cli": "^7.0.3",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-firebase/app": "^14.8.0",
@@ -23,6 +23,7 @@
     "axios": "^0.26.1",
     "babel-plugin-inline-import": "^3.0.0",
     "expo": "^44.0.6",
+    "expo-cli": "^5.4.0",
     "expo-status-bar": "~1.2.0",
     "firebase": "^9.6.11",
     "lodash.filter": "^4.6.0",

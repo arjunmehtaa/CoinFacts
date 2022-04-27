@@ -53,10 +53,15 @@ export const getQueryResults = async (query: string) => {
   }
 };
 
-export const getCoin = async (id: string) => {
+export const getCoins = async (idArray: string[]) => {
   try {
+    let ids = "";
+    idArray.forEach((id) => {
+      ids = ids + "%2C" + id;
+    });
     const response = await axios.get(
-      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=cad&ids=" + id
+      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=cad&ids=" +
+        ids
     );
     const data = response.data;
     return data;

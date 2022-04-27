@@ -37,7 +37,7 @@ const Home = () => {
               navigate("SearchStack" as never, { screen: "Search" } as never);
             }}
           />
-          <CoinFlatList data={data} fromSearch={false} />
+          <CoinFlatList data={data} />
         </>
       )}
     </SafeAreaView>

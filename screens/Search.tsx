@@ -1,16 +1,15 @@
 import { View, StyleSheet, Text, SafeAreaView, Image } from "react-native";
 import React, { useEffect, useState } from "react";
 import { CoinFlatList, LoadingIndicator, SearchBar } from "../components";
-import { getCoin, getQueryResults, getTrending } from "../services";
+import { getCoins, getQueryResults, getTrending } from "../services";
 import theme from "../theme";
 import { Coin } from "../model";
 import TrendingIcon from "../assets/icons/trending.svg";
-import { isValidCoin, sortCoinList } from "../utils";
 
 const { colors, fontSizes, margins } = theme;
 
 const Search = () => {
-  const [data, setData] = useState<Coin[]>([]);
+  const [searchData, setSearchData] = useState<Coin[]>([]);
   const [trendingData, setTrendingData] = useState<Coin[]>([]);
   const [loadingSearch, setLoadingSearch] = useState(true);
   const [loadingTrending, setLoadingTrending] = useState(true);
@@ -20,30 +19,44 @@ const Search = () => {
 
   useEffect(() => {
     const fetchTrending = async () => {
-      setTrendingData([]);
       const trendingData = await getTrending();
       const { coins } = trendingData;
-      coins.forEach(({ item }) => {
-        fetchCoin(item.id);
-      });
-      setLoadingTrending(false);
+      fetchCoins(coins, true);
     };
     fetchTrending();
   }, []);
 
-  const fetchCoin = async (id: string) => {
-    const coin = await getCoin(id);
-    if (isValidCoin(coin[0])) {
-      setTrendingData((trendingData) => [...trendingData, coin[0]]);
-      setTrendingData((trendingData) => sortCoinList(trendingData));
+  const fetchCoins = async (coins, isTrending: boolean) => {
+    const idsArray: string[] = [];
+    console.log(coins);
+    if (isTrending) {
+      coins.forEach(({ item }) => {
+        idsArray.push(item.id);
+      });
+    } else {
+      coins.forEach((item) => {
+        idsArray.push(item.id);
+      });
+    }
+    const fetchedCoins = await getCoins(idsArray);
+    if (isTrending) {
+      setTrendingData(fetchedCoins);
+      setLoadingTrending(false);
+    } else {
+      setSearchData(fetchedCoins);
+      setLoadingSearch(false);
     }
   };
 
   const fetchQueryResults = async (formattedQuery: string) => {
     const queryResults = await getQueryResults(formattedQuery);
     const { coins } = queryResults;
-    setData(coins);
-    setLoadingSearch(false);
+    if (coins.length > 0) {
+      fetchCoins(coins, false);
+    } else {
+      setSearchData([]);
+      setLoadingSearch(false);
+    }
   };
 
   const handleTextChange = (text: string) => {
@@ -55,12 +68,12 @@ const Search = () => {
     const formattedQuery = text.toLowerCase();
     setSearchedQuery(formattedQuery);
     setShowTrending(false);
-    if (text.length > 0) {
+    if (text.trim().length > 0) {
       setLoadingSearch(true);
-      setData([]);
+      setSearchData([]);
       fetchQueryResults(formattedQuery);
-    } else if (text.length === 0) {
-      setData([]);
+    } else if (text.trim().length === 0) {
+      setSearchData([]);
       setQuery("");
       setShowTrending(true);
     } else {
@@ -83,7 +96,7 @@ const Search = () => {
         {loadingTrending ? (
           <LoadingIndicator />
         ) : (
-          <CoinFlatList data={trendingData} fromSearch={false} />
+          <CoinFlatList data={trendingData} />
         )}
       </View>
     );
@@ -91,18 +104,11 @@ const Search = () => {
 
   const renderNoSearchResults = () => {
     return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-        }}
-      >
-        <View style={{ marginHorizontal: margins.large }}>
-          <Image
-            style={styles.imageStyle}
-            source={require("../assets/illustrations/no-search.png")}
-          />
-        </View>
+      <View style={{ flex: 1, justifyContent: "center" }}>
+        <Image
+          style={styles.imageStyle}
+          source={require("../assets/illustrations/no-search.png")}
+        />
         <Text style={styles.subtitle}>
           We looked far, but we couldn't find that coin.{"\n"}Check the
           spellings and try again.
@@ -124,9 +130,9 @@ const Search = () => {
           <LoadingIndicator />
         ) : (
           <>
-            {data.length > 0 ? (
+            {searchData.length > 0 ? (
               <>
-                <CoinFlatList data={data} fromSearch={true} />
+                <CoinFlatList data={searchData} />
               </>
             ) : (
               renderNoSearchResults()

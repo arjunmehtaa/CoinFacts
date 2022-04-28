@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import RoundedText from "./RoundedText";
 import { formatPrice } from "../utils";
 
-const { colors, commonStyles, fontSizes, image, margins } = theme;
+const { colors, fontSizes, image, margins, paddings, roundedComponent } = theme;
 
 interface Props {
   coin: Coin;
@@ -20,7 +20,7 @@ const Card = ({ coin }: Props) => {
 
   return (
     <TouchableOpacity
-      style={[commonStyles.card, { flexDirection: "row" }]}
+      style={styles.card}
       activeOpacity={0.5}
       onPress={() =>
         navigate(
@@ -29,15 +29,9 @@ const Card = ({ coin }: Props) => {
         )
       }
     >
-      <View style={{ flexDirection: "row", width: "65%" }}>
+      <View style={styles.imageTextContainer}>
         <Image style={styles.image} source={{ uri: imageUri }} />
-        <View
-          style={{
-            flexDirection: "column",
-            alignItems: "flex-start",
-            width: "80%",
-          }}
-        >
+        <View style={styles.leftColumn}>
           <Text style={styles.title} numberOfLines={1}>
             {coin.name}
           </Text>
@@ -55,13 +49,7 @@ const Card = ({ coin }: Props) => {
         </View>
       </View>
       {coin.current_price && coin.price_change_percentage_24h ? (
-        <View
-          style={{
-            flexDirection: "column",
-            alignItems: "flex-end",
-            width: "35%",
-          }}
-        >
+        <View style={styles.rightColumn}>
           <Text style={styles.title}>{formatPrice(coin.current_price)}</Text>
           <RoundedText
             title={
@@ -78,6 +66,28 @@ const Card = ({ coin }: Props) => {
 };
 
 const styles = StyleSheet.create({
+  card: {
+    flexDirection: "row",
+    backgroundColor: colors.translucentGrey,
+    borderRadius: roundedComponent.borderRadius,
+    marginHorizontal: margins.large,
+    marginVertical: margins.medium,
+    padding: paddings.medium,
+  },
+  imageTextContainer: {
+    flexDirection: "row",
+    width: "65%",
+  },
+  leftColumn: {
+    flexDirection: "column",
+    alignItems: "flex-start",
+    width: "80%",
+  },
+  rightColumn: {
+    flexDirection: "column",
+    alignItems: "flex-end",
+    width: "35%",
+  },
   image: {
     alignSelf: "center",
     height: image.height,

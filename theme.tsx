@@ -1,9 +1,3 @@
-import { StyleSheet } from "react-native";
-
-const button = {
-  height: 52,
-};
-
 const colors = {
   black: "#000000",
   blue: "#1E90FF",
@@ -19,6 +13,7 @@ const colors = {
 };
 
 const fontSizes = {
+  xsmall: 10,
   small: 13,
   medium: 16,
   large: 24,
@@ -48,20 +43,8 @@ const roundedComponent = {
   borderRadius: 8,
 };
 
-const commonStyles = StyleSheet.create({
-  card: {
-    padding: paddings.medium,
-    marginVertical: margins.medium,
-    marginHorizontal: margins.large,
-    borderRadius: roundedComponent.borderRadius,
-    backgroundColor: colors.translucentGrey,
-  },
-});
-
 const theme = {
-  button,
   colors,
-  commonStyles,
   fontSizes,
   image,
   margins,

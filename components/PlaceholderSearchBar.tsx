@@ -15,11 +15,7 @@ const SearchBar = ({ onPress }: Props) => {
       activeOpacity={0.5}
       onPress={onPress}
     >
-      <SearchIcon
-        width={20}
-        height={20}
-        style={{ alignSelf: "center", marginRight: margins.small }}
-      />
+      <SearchIcon width={20} height={20} style={styles.icon} />
       <Text style={styles.searchInput}>Search CoinFacts</Text>
     </TouchableOpacity>
   );
@@ -27,10 +23,10 @@ const SearchBar = ({ onPress }: Props) => {
 
 const styles = StyleSheet.create({
   searchContainer: {
+    flexDirection: "row",
     height: 48,
     backgroundColor: colors.translucentGrey,
     borderRadius: roundedComponent.borderRadius,
-    flexDirection: "row",
     marginHorizontal: margins.large,
     marginBottom: margins.medium,
     marginTop: Platform.OS === "android" ? margins.large : margins.medium,
@@ -41,6 +37,10 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     flex: 1,
     fontSize: fontSizes.medium,
+  },
+  icon: {
+    alignSelf: "center",
+    marginRight: margins.small,
   },
 });
 

@@ -3,18 +3,18 @@ import {
   TouchableOpacity,
   StyleSheet,
   StyleProp,
-  TextStyle,
+  ViewStyle,
 } from "react-native";
 import React from "react";
 import theme from "../theme";
 
-const { colors, margins, paddings, roundedComponent, fontSizes } = theme;
+const { colors, fontSizes, margins, paddings, roundedComponent } = theme;
 
 interface Props {
   onPress: () => void;
   type: string;
   title: string;
-  style?: StyleProp<TextStyle> | undefined;
+  style?: StyleProp<ViewStyle> | undefined;
 }
 
 const Button = ({ onPress, title, type, style }: Props) => {
@@ -42,20 +42,20 @@ const Button = ({ onPress, title, type, style }: Props) => {
 const styles = StyleSheet.create({
   button: {
     justifyContent: "center",
-    paddingVertical: paddings.medium,
-    paddingHorizontal: paddings.large,
-    marginVertical: margins.medium,
-    marginHorizontal: margins.large,
-    borderRadius: roundedComponent.borderRadius,
-    borderColor: colors.blue,
     backgroundColor: colors.blue,
+    borderColor: colors.blue,
+    borderRadius: roundedComponent.borderRadius,
     borderWidth: 1,
+    marginHorizontal: margins.large,
+    marginVertical: margins.medium,
+    paddingHorizontal: paddings.large,
+    paddingVertical: paddings.medium,
   },
   title: {
-    textAlign: "center",
-    fontWeight: "bold",
-    fontSize: fontSizes.medium,
     color: colors.white,
+    fontSize: fontSizes.medium,
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });
 

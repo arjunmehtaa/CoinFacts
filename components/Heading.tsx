@@ -15,12 +15,12 @@ const Heading = ({ title, style }: Props) => {
 
 const styles = StyleSheet.create({
   title: {
-    fontWeight: "bold",
-    fontSize: fontSizes.xlarge,
-    marginHorizontal: margins.large,
-    marginTop: margins.xlarge,
-    marginBottom: margins.small,
     color: colors.darkGrey,
+    fontSize: fontSizes.xlarge,
+    fontWeight: "bold",
+    marginHorizontal: margins.large,
+    marginBottom: margins.small,
+    marginTop: margins.xlarge,
   },
 });
 

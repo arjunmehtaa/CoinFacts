@@ -13,11 +13,11 @@ interface Props {
 const CoinFlatList = ({ data }: Props) => {
   return (
     <FlatList
-      keyExtractor={(item) => item.id}
-      keyboardShouldPersistTaps="handled"
-      contentContainerStyle={{ paddingBottom: paddings.medium }}
       data={data}
       renderItem={({ item }) => <Card coin={item} />}
+      keyExtractor={(item) => item.id}
+      contentContainerStyle={{ paddingBottom: paddings.medium }}
+      keyboardShouldPersistTaps="handled"
       overScrollMode="never"
     />
   );

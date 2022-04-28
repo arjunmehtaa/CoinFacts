@@ -2,7 +2,7 @@ import React from "react";
 import Toast, { BaseToast } from "react-native-toast-message";
 import theme from "../theme";
 
-const { colors, paddings } = theme;
+const { colors } = theme;
 
 const toastConfig = {
   success: (props) => (

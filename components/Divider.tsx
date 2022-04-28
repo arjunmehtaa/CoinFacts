@@ -2,7 +2,7 @@ import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import theme from "../theme";
 
-const { colors, margins } = theme;
+const { colors, fontSizes, margins } = theme;
 
 interface Props {
   title?: string;
@@ -21,19 +21,18 @@ const Divider = ({ title }: Props) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    marginBottom: margins.medium,
-    justifyContent: "center",
     alignItems: "center",
+    justifyContent: "center",
+    marginBottom: margins.medium,
   },
   title: {
     color: colors.lightGrey,
-    fontSize: 10,
+    fontSize: fontSizes.xsmall,
     fontWeight: "bold",
   },
   divider: {
     flex: 1,
     height: 0.5,
-    borderRadius: 100,
     backgroundColor: colors.lightGrey,
   },
   left: {
@@ -41,8 +40,8 @@ const styles = StyleSheet.create({
     marginRight: margins.medium,
   },
   right: {
-    marginRight: margins.xlarge,
     marginLeft: margins.medium,
+    marginRight: margins.xlarge,
   },
 });
 

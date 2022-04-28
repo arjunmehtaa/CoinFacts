@@ -20,7 +20,7 @@ import WatchlistFilledIcon from "../assets/icons/watchlist-filled.svg";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { showToast } from "../components/ToastMessage";
 
-const { colors, commonStyles, margins, fontSizes, paddings } = theme;
+const { colors, fontSizes, margins, paddings, roundedComponent } = theme;
 
 const CoinDetails = ({ route }) => {
   const db = getDatabase();
@@ -121,7 +121,7 @@ const CoinDetails = ({ route }) => {
           textStyle={styles.subtitle}
           containerStyle={{ alignSelf: "center" }}
         />
-        <View style={[commonStyles.card, { marginVertical: margins.large }]}>
+        <View style={styles.card}>
           <Row heading={"Market Cap"} value={"$" + coin.market_cap} />
           {coin.fully_diluted_valuation ? (
             <Row
@@ -174,6 +174,13 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
     flex: 1,
+  },
+  card: {
+    padding: paddings.medium,
+    marginVertical: margins.large,
+    marginHorizontal: margins.large,
+    borderRadius: roundedComponent.borderRadius,
+    backgroundColor: colors.translucentGrey,
   },
   header: {
     height: 52,

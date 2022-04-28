@@ -32,11 +32,7 @@ const SearchBar = ({ query, handleSearch, handleTextChange }: Props) => {
       style={styles.searchContainer}
       onPress={() => inputRef.current?.focus()}
     >
-      <SearchIcon
-        width={20}
-        height={20}
-        style={{ alignSelf: "center", marginRight: margins.small }}
-      />
+      <SearchIcon width={20} height={20} style={styles.icon} />
       <TextInput
         autoCapitalize="none"
         autoCorrect={false}
@@ -45,9 +41,7 @@ const SearchBar = ({ query, handleSearch, handleTextChange }: Props) => {
           handleTextChange(queryText);
           setText(queryText);
         }}
-        onSubmitEditing={(event) => {
-          handleSearch(event.nativeEvent.text);
-        }}
+        onSubmitEditing={(event) => handleSearch(event.nativeEvent.text)}
         placeholder="Search CoinFacts"
         placeholderTextColor={colors.lightGrey}
         style={styles.searchInput}
@@ -74,23 +68,27 @@ const SearchBar = ({ query, handleSearch, handleTextChange }: Props) => {
 
 const styles = StyleSheet.create({
   searchContainer: {
+    flexDirection: "row",
     height: 48,
     backgroundColor: colors.translucentGrey,
     borderRadius: roundedComponent.borderRadius,
-    flexDirection: "row",
     marginHorizontal: margins.large,
     marginBottom: margins.medium,
     marginTop: Platform.OS === "android" ? margins.large : margins.medium,
     paddingLeft: paddings.medium,
   },
   buttonContainer: {
-    height: 48,
     justifyContent: "center",
+    height: 48,
     paddingHorizontal: paddings.medium,
   },
   searchInput: {
     flex: 1,
     fontSize: fontSizes.medium,
+  },
+  icon: {
+    alignSelf: "center",
+    marginRight: margins.small,
   },
 });
 

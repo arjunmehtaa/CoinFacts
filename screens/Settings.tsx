@@ -6,7 +6,7 @@ import { Button, Heading, RoundedText } from "../components";
 import ProfileIcon from "../assets/icons/profile.svg";
 import AppearanceIcon from "../assets/icons/appearance.svg";
 
-const { colors, margins, commonStyles, fontSizes } = theme;
+const { colors, margins, fontSizes, paddings, roundedComponent } = theme;
 
 const Settings = ({ user }) => {
   const { signOut } = React.useContext(AuthContext);
@@ -14,7 +14,7 @@ const Settings = ({ user }) => {
     <View style={styles.container}>
       <Heading title="Settings" />
       <ScrollView>
-        <View style={[commonStyles.card, { flexDirection: "row" }]}>
+        <View style={styles.card}>
           <ProfileIcon
             style={{ alignSelf: "center" }}
             fill={colors.darkGrey}
@@ -31,7 +31,7 @@ const Settings = ({ user }) => {
             />
           </View>
         </View>
-        <View style={[commonStyles.card, { flexDirection: "row" }]}>
+        <View style={styles.card}>
           <AppearanceIcon
             style={{ alignSelf: "center" }}
             fill={colors.darkGrey}
@@ -58,6 +58,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
+  },
+  card: {
+    flexDirection: "row",
+    padding: paddings.medium,
+    marginVertical: margins.medium,
+    marginHorizontal: margins.large,
+    borderRadius: roundedComponent.borderRadius,
+    backgroundColor: colors.translucentGrey,
   },
   textContainer: {
     marginLeft: margins.large,

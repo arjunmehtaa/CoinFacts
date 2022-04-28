@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, StyleProp, TextStyle } from "react-native";
 import React from "react";
 import theme from "../theme";
 
-const { colors, fontSizes, paddings, margins, roundedComponent } = theme;
+const { fontSizes, paddings, margins, roundedComponent } = theme;
 
 interface Props {
   textStyle?: StyleProp<TextStyle> | undefined;
@@ -28,13 +28,13 @@ const RoundedText = ({ title, color, textStyle, containerStyle }: Props) => {
 const styles = StyleSheet.create({
   container: {
     borderRadius: roundedComponent.borderRadius,
-    paddingVertical: paddings.xsmall,
-    paddingHorizontal: paddings.small,
     marginTop: margins.small,
+    paddingHorizontal: paddings.small,
+    paddingVertical: paddings.xsmall,
   },
   text: {
-    fontWeight: "bold",
     fontSize: fontSizes.small,
+    fontWeight: "bold",
   },
 });
 

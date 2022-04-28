@@ -4,6 +4,7 @@ import theme from "../theme";
 import { Coin } from "../model";
 import { useNavigation } from "@react-navigation/native";
 import RoundedText from "./RoundedText";
+import { formatPrice } from "../utils";
 
 const { colors, commonStyles, fontSizes, image, margins } = theme;
 
@@ -61,7 +62,7 @@ const Card = ({ coin }: Props) => {
             width: "35%",
           }}
         >
-          <Text style={styles.title}>${coin.current_price}</Text>
+          <Text style={styles.title}>{formatPrice(coin.current_price)}</Text>
           <RoundedText
             title={
               (coin.price_change_percentage_24h > 0 ? "+" : "") +

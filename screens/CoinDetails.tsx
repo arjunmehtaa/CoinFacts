@@ -10,7 +10,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { Coin } from "../model";
 import theme from "../theme";
-import { isValidCoin } from "../utils";
+import { formatPrice, isValidCoin } from "../utils";
 import { RoundedText, ToastMessage } from "../components";
 import { getDatabase, onValue, ref, set } from "@firebase/database";
 import { getAuth } from "firebase/auth";
@@ -24,7 +24,8 @@ const { colors, commonStyles, margins, fontSizes, paddings } = theme;
 
 const CoinDetails = ({ route }) => {
   const db = getDatabase();
-  const userId = getAuth().currentUser?.uid;
+  const user = getAuth().currentUser;
+  const userId = user?.uid;
   const reference = ref(db, "users/" + userId);
   const navigation = useNavigation();
   const coin: Coin = route.params.coin;
@@ -55,19 +56,26 @@ const CoinDetails = ({ route }) => {
   }, []);
 
   const watchlistButtonPressed = () => {
-    showToast(
-      isWatched ? "Removed from Watchlist" : "Added to Watchlist",
-      isWatched ? "error" : "success"
-    );
-    Vibration.vibrate(50);
-    if (isWatched) {
-      set(reference, {
-        watchlist: watchlist.replace(";" + coin.id + ";", ""),
-      });
+    if (user) {
+      showToast(
+        isWatched ? "Removed from Watchlist" : "Added to Watchlist",
+        isWatched ? "error" : "success"
+      );
+      Vibration.vibrate(50);
+      if (isWatched) {
+        set(reference, {
+          watchlist: watchlist.replace(";" + coin.id + ";", ""),
+        });
+      } else {
+        set(reference, {
+          watchlist: watchlist + ";" + coin.id + ";",
+        });
+      }
     } else {
-      set(reference, {
-        watchlist: watchlist + ";" + coin.id + ";",
-      });
+      navigation.navigate(
+        "WatchlistStack" as never,
+        { screen: "WatchlistStack" } as never
+      );
     }
   };
 
@@ -102,7 +110,7 @@ const CoinDetails = ({ route }) => {
             textStyle={styles.subtitle}
           />
         </View>
-        <Text style={styles.price}>${coin.current_price}</Text>
+        <Text style={styles.price}>{formatPrice(coin.current_price)}</Text>
         <RoundedText
           title={
             (coin.price_change_percentage_24h > 0 ? "+" : "") +

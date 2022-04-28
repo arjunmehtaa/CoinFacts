@@ -4,15 +4,19 @@ import { getDatabase, onValue, ref } from "@firebase/database";
 import { getAuth } from "firebase/auth";
 import { Coin } from "../model";
 import { getCoins } from "../services";
-import { isValidCoin, sortCoinList } from "../utils";
 import theme from "../theme";
-import { CoinFlatList, Heading, LoadingIndicator } from "../components";
+import { Button, CoinFlatList, Heading, LoadingIndicator } from "../components";
+import { AuthContext } from "../contexts/UserContext";
 
 const { colors, margins, fontSizes } = theme;
 
 const Watchlist = () => {
   const [data, setData] = useState<Coin[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { returnToLogin } = React.useContext(AuthContext);
+  const db = getDatabase();
+  const user = getAuth().currentUser;
 
   const fetchCoins = async (idsArray: string[]) => {
     const coins = await getCoins(idsArray);
@@ -29,19 +33,24 @@ const Watchlist = () => {
   };
 
   useEffect(() => {
-    const db = getDatabase();
-    const reference = ref(db, "users/" + getAuth().currentUser?.uid);
-    return onValue(reference, (snapshot) => {
-      if (snapshot.val()?.watchlist) {
-        const watchlist = snapshot.val()?.watchlist;
-        fetchWatchlist(
-          watchlist.substring(1, watchlist.length - 1).split(";;")
-        );
-      } else {
-        setData([]);
-        setLoading(false);
-      }
-    });
+    if (user) {
+      setIsLoggedIn(true);
+      const userId = user?.uid;
+      const reference = ref(db, "users/" + userId);
+      return onValue(reference, (snapshot) => {
+        if (snapshot.val()?.watchlist) {
+          const watchlist = snapshot.val()?.watchlist;
+          fetchWatchlist(
+            watchlist.substring(1, watchlist.length - 1).split(";;")
+          );
+        } else {
+          setData([]);
+          setLoading(false);
+        }
+      });
+    } else {
+      setIsLoggedIn(false);
+    }
   }, []);
 
   const renderEmptyWatchlist = () => {
@@ -52,9 +61,29 @@ const Watchlist = () => {
           source={require("../assets/illustrations/no-watchlist.png")}
         />
         <Text style={styles.subtitle}>
-          Looks like your watchlist is empty.{"\n"} Add a coin to your watchlist
-          to get started.
+          Looks like your watchlist is empty.{"\n"} Add a coin to your list to
+          track it.
         </Text>
+      </View>
+    );
+  };
+
+  const renderNotLoggedIn = () => {
+    return (
+      <View style={{ flex: 1, justifyContent: "center" }}>
+        <Image
+          style={styles.imageStyle}
+          source={require("../assets/illustrations/no-login.png")}
+        />
+        <Text style={styles.subtitle}>
+          You must be logged in to use this feature.
+        </Text>
+        <Button
+          onPress={() => returnToLogin()}
+          type={"primary"}
+          style={{ marginTop: margins.large }}
+          title={"Go to Login Screen"}
+        />
       </View>
     );
   };
@@ -63,18 +92,24 @@ const Watchlist = () => {
     <SafeAreaView style={styles.container}>
       <View style={{ flex: 1 }}>
         <View style={{ flexDirection: "row" }}>
-          <Heading title="Watchlist" style={{ marginBottom: margins.small }} />
+          <Heading title="Watchlist" />
         </View>
-        {loading ? (
-          <LoadingIndicator />
-        ) : (
+        {isLoggedIn ? (
           <>
-            {data.length > 0 ? (
-              <CoinFlatList data={data} />
+            {loading ? (
+              <LoadingIndicator />
             ) : (
-              renderEmptyWatchlist()
+              <>
+                {data.length > 0 ? (
+                  <CoinFlatList data={data} />
+                ) : (
+                  renderEmptyWatchlist()
+                )}
+              </>
             )}
           </>
+        ) : (
+          <>{renderNotLoggedIn()}</>
         )}
       </View>
     </SafeAreaView>

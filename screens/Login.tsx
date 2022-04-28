@@ -5,8 +5,6 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
-  KeyboardAvoidingView,
-  Dimensions,
   Alert,
   SafeAreaView,
 } from "react-native";
@@ -17,16 +15,17 @@ import EmailIcon from "../assets/icons/email.svg";
 import PasswordIcon from "../assets/icons/password.svg";
 import VisibilityOnIcon from "../assets/icons/visibilityOn.svg";
 import VisibilityOffIcon from "../assets/icons/visibilityOff.svg";
-import { Heading } from "../components";
+import { Button, Divider, Heading } from "../components";
 
-const { colors, commonStyles, margins, fontSizes, paddings } = theme;
+const { colors, margins, fontSizes, paddings, roundedComponent } = theme;
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isRegister, setIsRegister] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const { signIn, signUp } = React.useContext(AuthContext);
+  const { signIn, signUp, continueWithoutLogging } =
+    React.useContext(AuthContext);
   const emailInputRef = React.createRef<TextInput>();
   const passwordInputRef = React.createRef<TextInput>();
 
@@ -50,14 +49,11 @@ const Login = () => {
   const renderFooter = () => {
     return (
       <>
-        <TouchableOpacity
+        <Button
           onPress={() => handleSignIn(email, password)}
-          style={[commonStyles.card, commonStyles.button]}
-        >
-          <Text style={commonStyles.buttonText}>
-            {isRegister ? "Register" : "Login"}
-          </Text>
-        </TouchableOpacity>
+          type={"primary"}
+          title={isRegister ? "Register" : "Login"}
+        />
         <View style={styles.footerContainer}>
           <Text style={styles.footerText}>
             {isRegister ? "Already have an account?" : "New to CoinFacts?"}
@@ -73,100 +69,91 @@ const Login = () => {
             {isRegister ? "Login" : "Register"}
           </Text>
         </View>
+        <Divider title="OR" />
+        <Button
+          onPress={() => continueWithoutLogging()}
+          type={"secondary"}
+          title={"Continue as Guest"}
+        />
       </>
     );
   };
 
   const renderPasswordVisibilityButton = () => {
     return (
-      <>
-        {password ? (
-          <>
-            {isPasswordVisible ? (
-              <VisibilityOffIcon
-                width={20}
-                height={20}
-                fill={colors.lightGrey}
-                style={{ alignSelf: "center", marginRight: margins.small }}
-                onPress={() => {
-                  togglePasswordVisibility();
-                }}
-              />
-            ) : (
-              <VisibilityOnIcon
-                width={20}
-                height={20}
-                fill={colors.lightGrey}
-                style={{ alignSelf: "center", marginRight: margins.small }}
-                onPress={() => {
-                  togglePasswordVisibility();
-                }}
-              />
-            )}
-          </>
-        ) : null}
-      </>
+      <TouchableOpacity
+        style={styles.visibilityContainer}
+        onPress={() => {
+          togglePasswordVisibility();
+        }}
+      >
+        {isPasswordVisible ? (
+          <VisibilityOffIcon width={20} height={20} fill={colors.lightGrey} />
+        ) : (
+          <VisibilityOnIcon width={20} height={20} fill={colors.lightGrey} />
+        )}
+      </TouchableOpacity>
     );
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView>
-        <Heading title={isRegister ? "Register" : "Login"} />
-        <TouchableOpacity
-          style={[commonStyles.card, { flexDirection: "row" }]}
-          onPress={() => emailInputRef.current?.focus()}
-        >
-          <EmailIcon
-            width={20}
-            height={20}
-            fill={colors.lightGrey}
-            style={{ alignSelf: "center", marginRight: margins.medium }}
-          />
-          <TextInput
-            placeholder="Email"
-            value={email}
-            ref={emailInputRef}
-            onChangeText={(text) => setEmail(text)}
-            autoCapitalize="none"
-            autoCorrect={false}
-            selectionColor={colors.black}
-            style={styles.inputText}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[commonStyles.card, { flexDirection: "row" }]}
-          onPress={() => passwordInputRef.current?.focus()}
-        >
-          <PasswordIcon
-            width={20}
-            height={20}
-            fill={colors.lightGrey}
-            style={{ alignSelf: "center", marginRight: margins.medium }}
-          />
-          <TextInput
-            placeholder="Password"
-            value={password}
-            ref={passwordInputRef}
-            onChangeText={(text) => setPassword(text)}
-            autoCapitalize="none"
-            autoCorrect={false}
-            selectionColor={colors.black}
-            style={styles.inputText}
-            secureTextEntry={isPasswordVisible ? false : true}
-          />
-          {renderPasswordVisibilityButton()}
-        </TouchableOpacity>
-        {renderFooter()}
-      </KeyboardAvoidingView>
-      <Image
-        style={styles.imageStyle}
-        source={
-          isRegister
-            ? require("../assets/illustrations/register.png")
-            : require("../assets/illustrations/login.png")
-        }
-      />
+      <Heading title={isRegister ? "Register" : "Login"} />
+      <TouchableOpacity
+        style={styles.textInputContainer}
+        onPress={() => emailInputRef.current?.focus()}
+      >
+        <EmailIcon
+          width={20}
+          height={20}
+          fill={colors.lightGrey}
+          style={{ alignSelf: "center", marginRight: margins.medium }}
+        />
+        <TextInput
+          placeholder="Email"
+          value={email}
+          ref={emailInputRef}
+          onChangeText={(text) => setEmail(text)}
+          autoCapitalize="none"
+          autoCorrect={false}
+          selectionColor={colors.black}
+          style={styles.textInput}
+        />
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.textInputContainer}
+        onPress={() => passwordInputRef.current?.focus()}
+      >
+        <PasswordIcon
+          width={20}
+          height={20}
+          fill={colors.lightGrey}
+          style={{ alignSelf: "center", marginRight: margins.medium }}
+        />
+        <TextInput
+          placeholder="Password"
+          value={password}
+          ref={passwordInputRef}
+          onChangeText={(text) => setPassword(text)}
+          autoCapitalize="none"
+          autoCorrect={false}
+          selectionColor={colors.black}
+          style={styles.textInput}
+          secureTextEntry={isPasswordVisible ? false : true}
+        />
+        {renderPasswordVisibilityButton()}
+      </TouchableOpacity>
+      {renderFooter()}
+      <View style={{ flex: 1 }}>
+        <Image
+          style={styles.imageStyle}
+          source={
+            isRegister
+              ? require("../assets/illustrations/register.png")
+              : require("../assets/illustrations/login.png")
+          }
+        />
+      </View>
     </SafeAreaView>
   );
 };
@@ -199,16 +186,30 @@ const styles = StyleSheet.create({
     color: colors.blue,
     marginHorizontal: margins.small,
   },
-  inputText: {
+  textInput: {
     flex: 1,
     fontSize: fontSizes.medium,
   },
   imageStyle: {
-    height: Dimensions.get("window").height / 2,
-    width: undefined,
+    height: "100%",
+    width: "100%",
     aspectRatio: 1,
     resizeMode: "contain",
     alignSelf: "center",
+  },
+  visibilityContainer: {
+    height: 48,
+    justifyContent: "center",
+    paddingHorizontal: paddings.medium,
+  },
+  textInputContainer: {
+    height: 48,
+    backgroundColor: colors.translucentGrey,
+    borderRadius: roundedComponent.borderRadius,
+    flexDirection: "row",
+    marginHorizontal: margins.large,
+    marginVertical: margins.medium,
+    paddingLeft: paddings.medium,
   },
 });
 

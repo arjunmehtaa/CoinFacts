@@ -49,37 +49,12 @@ const roundedComponent = {
 };
 
 const commonStyles = StyleSheet.create({
-  coinRank: {
-    marginRight: margins.small,
-    backgroundColor: colors.grey + "10",
-    color: colors.grey,
-  },
-  textCard: {
-    backgroundColor: colors.blue + "10",
-    borderRadius: roundedComponent.borderRadius,
-    color: colors.blue,
-    fontWeight: "bold",
-    paddingVertical: paddings.xsmall,
-    paddingHorizontal: paddings.small,
-    marginTop: margins.small,
-  },
   card: {
     padding: paddings.medium,
     marginVertical: margins.medium,
     marginHorizontal: margins.large,
     borderRadius: roundedComponent.borderRadius,
     backgroundColor: colors.translucentGrey,
-  },
-  button: {
-    justifyContent: "center",
-    backgroundColor: colors.blue,
-    marginTop: margins.xlarge,
-  },
-  buttonText: {
-    textAlign: "center",
-    fontWeight: "bold",
-    fontSize: fontSizes.medium,
-    color: colors.white,
   },
 });
 

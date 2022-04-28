@@ -1,5 +1,7 @@
 import { Coin } from "../model";
 
+require("number-to-locale-string-polyfill");
+
 export const isValidCoin = (coin: Coin): boolean => {
   if (
     coin.id &&
@@ -21,4 +23,23 @@ export const sortCoinList = (coinList: Coin[]): Coin[] => {
       : 0
   );
   return coinList;
+};
+
+export const formatPrice = (price: number): string => {
+  const priceString = price.toString();
+  if (priceString.includes(".")) {
+    const priceArray = priceString.split(".");
+    return (
+      parseInt(priceArray[0]).toLocaleString("en-US", {
+        style: "currency",
+        currency: "USD",
+      }) +
+      "." +
+      priceArray[1]
+    );
+  }
+  return price.toLocaleString("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
 };

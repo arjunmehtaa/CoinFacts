@@ -18,7 +18,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: fontSizes.xlarge,
     marginHorizontal: margins.large,
-    marginVertical: margins.xlarge,
+    marginTop: margins.xlarge,
+    marginBottom: margins.small,
     color: colors.darkGrey,
   },
 });

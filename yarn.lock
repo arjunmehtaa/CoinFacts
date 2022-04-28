@@ -10456,6 +10456,11 @@ number-is-nan@^1.0.0:
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
   integrity sha1-CXtgK1NCKlIsGvuHkDGDNpQaAR0=
 
+number-to-locale-string-polyfill@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/number-to-locale-string-polyfill/-/number-to-locale-string-polyfill-1.0.9.tgz#4fa9a293216d99349230f6eedca4cd8c9570bea0"
+  integrity sha512-2ACyxP9+fbAo/PDd8Q5VzBw1MZag3m5JREh1mskkENf67XJj0h+pBwH4Z3uKmQobb+aTy+nqJlvoDwD5/e3uHQ==
+
 ob1@0.64.0:
   version "0.64.0"
   resolved "https://registry.yarnpkg.com/ob1/-/ob1-0.64.0.tgz#f254a55a53ca395c4f9090e28a85483eac5eba19"

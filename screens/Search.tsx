@@ -28,7 +28,6 @@ const Search = () => {
 
   const fetchCoins = async (coins, isTrending: boolean) => {
     const idsArray: string[] = [];
-    console.log(coins);
     if (isTrending) {
       coins.forEach(({ item }) => {
         idsArray.push(item.id);

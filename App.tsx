@@ -92,7 +92,7 @@ const WatchlistStack = () => {
 };
 
 export default function App() {
-  const [userId, setUserId] = useState("");
+  const [requireLogin, setRequireLogin] = useState(true);
 
   const BottomNavigation = () => {
     return (
@@ -270,6 +270,12 @@ export default function App() {
             return false;
           });
       },
+      continueWithoutLogging: () => {
+        setRequireLogin(false);
+      },
+      returnToLogin: () => {
+        setRequireLogin(true);
+      },
     }),
     []
   );
@@ -277,7 +283,7 @@ export default function App() {
   const RootStack = () => {
     return (
       <Stack.Navigator>
-        {loginState.user !== null ? (
+        {loginState.user !== null || !requireLogin ? (
           <Stack.Screen
             name="MainApp"
             component={BottomNavigation}

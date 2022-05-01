@@ -34,8 +34,8 @@ export const getMarketData = async () => {
       "https://api.coingecko.com/api/v3/coins/markets?vs_currency=cad&order=market_cap_desc&per_page=100&page=1&sparkline=true&price_change_percentage=7d"
     );
     const data = response.data;
-    const formattedResponse = formatMarketData(data);
-    return formattedResponse;
+    // const formattedResponse = formatMarketData(data);
+    return data;
   } catch (error) {
     console.log(error.message);
   }

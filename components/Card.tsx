@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import theme from "../theme";
 import { Coin } from "../model";
@@ -103,4 +103,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Card;
+export default memo(Card);

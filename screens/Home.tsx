@@ -1,29 +1,35 @@
 import React, { useEffect, useState } from "react";
 import theme from "../theme";
-import { SafeAreaView, StyleSheet } from "react-native";
 import {
-  CoinFlatList,
-  LoadingIndicator,
-  PlaceholderSearchBar,
-} from "../components";
+  FlatList,
+  RefreshControl,
+  SafeAreaView,
+  StyleSheet,
+} from "react-native";
+import { Card, LoadingIndicator, PlaceholderSearchBar } from "../components";
 import { getMarketData } from "../services";
 import { Coin } from "../model";
 import { useNavigation } from "@react-navigation/native";
 
-const { colors } = theme;
+const { colors, paddings } = theme;
 
 const Home = () => {
   const [data, setData] = useState<Coin[]>([]);
   const [loading, setLoading] = useState(true);
   const { navigate } = useNavigation();
 
+  const fetchMarketData = async () => {
+    setLoading(true);
+    const marketData = await getMarketData();
+    setData(marketData);
+    setLoading(false);
+  };
+
   useEffect(() => {
-    const fetchMarketData = async () => {
-      const marketData = await getMarketData();
-      setData(marketData!);
-      setLoading(false);
-    };
     fetchMarketData();
+    return () => {
+      setData([]);
+    };
   }, []);
 
   return (
@@ -37,7 +43,21 @@ const Home = () => {
               navigate("SearchStack" as never, { screen: "Search" } as never);
             }}
           />
-          <CoinFlatList data={data} />
+          <FlatList
+            data={data}
+            renderItem={({ item }) => <Card coin={item} />}
+            keyExtractor={(item) => item.id}
+            initialNumToRender={10}
+            contentContainerStyle={styles.flatlist}
+            keyboardShouldPersistTaps="handled"
+            overScrollMode="never"
+            refreshControl={
+              <RefreshControl
+                refreshing={loading}
+                onRefresh={() => fetchMarketData()}
+              />
+            }
+          />
         </>
       )}
     </SafeAreaView>
@@ -48,6 +68,9 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
     flex: 1,
+  },
+  flatlist: {
+    paddingBottom: paddings.medium,
   },
 });
 

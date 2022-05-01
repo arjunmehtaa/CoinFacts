@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, Image } from "react-native";
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import theme from "../theme";
 import { NewsItem } from "../model";
 import * as WebBrowser from "expo-web-browser";
@@ -20,7 +20,11 @@ const NewsCard = ({ newsItem }: Props) => {
 
   return (
     <>
-      <TouchableOpacity style={styles.card} onPress={handleCardPressed}>
+      <TouchableOpacity
+        style={styles.card}
+        onPress={handleCardPressed}
+        activeOpacity={0.5}
+      >
         <Image style={styles.image} source={{ uri: newsItem.urlToImage }} />
         <Text style={styles.title}>{newsItem.title}</Text>
       </TouchableOpacity>
@@ -57,4 +61,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NewsCard;
+export default memo(NewsCard);

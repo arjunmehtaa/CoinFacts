@@ -318,7 +318,7 @@ export default function App() {
   if (loginState.isLoading) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size="large" color="green" />
+        <ActivityIndicator size="large" color="black" />
       </View>
     );
   }

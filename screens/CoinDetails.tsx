@@ -6,12 +6,13 @@ import {
   Vibration,
   TouchableOpacity,
   ScrollView,
+  RefreshControl,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Coin } from "../model";
 import theme from "../theme";
 import { formatPrice, isValidCoin } from "../utils";
-import { RoundedText, ToastMessage } from "../components";
+import { LoadingIndicator, RoundedText, ToastMessage } from "../components";
 import { getDatabase, onValue, ref, set } from "@firebase/database";
 import { getAuth } from "firebase/auth";
 import BackIcon from "../assets/icons/back.svg";
@@ -19,16 +20,18 @@ import WatchlistIcon from "../assets/icons/watchlist.svg";
 import WatchlistFilledIcon from "../assets/icons/watchlist-filled.svg";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { showToast } from "../components/ToastMessage";
+import { getCoins } from "../services";
 
 const { colors, fontSizes, margins, paddings, roundedComponent } = theme;
 
 const CoinDetails = ({ route }) => {
+  const [coin, setCoin] = useState<Coin>(route.params.coin);
+  const [loading, setLoading] = useState(false);
   const db = getDatabase();
   const user = getAuth().currentUser;
   const userId = user?.uid;
   const reference = ref(db, "users/" + userId);
   const navigation = useNavigation();
-  const coin: Coin = route.params.coin;
   const [isWatched, setIsWatched] = useState(false);
   const [watchlist, setWatchlist] = useState("");
   const imageUri = coin.image ? coin.image : coin.large;
@@ -54,6 +57,13 @@ const CoinDetails = ({ route }) => {
       }
     });
   }, []);
+
+  const fetchCoin = async () => {
+    setLoading(true);
+    const coins = await getCoins([coin.id]);
+    setCoin(coins[0]);
+    setLoading(false);
+  };
 
   const watchlistButtonPressed = () => {
     if (user) {
@@ -94,7 +104,12 @@ const CoinDetails = ({ route }) => {
 
   const renderCoinDetails = () => {
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView
+        style={styles.container}
+        refreshControl={
+          <RefreshControl refreshing={loading} onRefresh={() => fetchCoin()} />
+        }
+      >
         <Image style={styles.image} source={{ uri: imageUri }} />
         <Text style={styles.name}>{coin.name}</Text>
         <View style={{ flexDirection: "row", justifyContent: "center" }}>
@@ -146,26 +161,32 @@ const CoinDetails = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.headerButton}
-          onPress={() => navigation.goBack()}
-        >
-          <BackIcon height={28} width={28} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.headerButton}
-          onPress={() => watchlistButtonPressed()}
-        >
-          {isWatched ? (
-            <WatchlistFilledIcon height={28} width={28} />
-          ) : (
-            <WatchlistIcon height={28} width={28} />
-          )}
-        </TouchableOpacity>
-      </View>
-      {isValidCoin(coin) ? renderCoinDetails() : null}
-      <ToastMessage />
+      {loading ? (
+        <LoadingIndicator />
+      ) : (
+        <>
+          <View style={styles.header}>
+            <TouchableOpacity
+              style={styles.headerButton}
+              onPress={() => navigation.goBack()}
+            >
+              <BackIcon height={28} width={28} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.headerButton}
+              onPress={() => watchlistButtonPressed()}
+            >
+              {isWatched ? (
+                <WatchlistFilledIcon height={28} width={28} />
+              ) : (
+                <WatchlistIcon height={28} width={28} />
+              )}
+            </TouchableOpacity>
+          </View>
+          {isValidCoin(coin) ? renderCoinDetails() : null}
+          <ToastMessage />
+        </>
+      )}
     </View>
   );
 };

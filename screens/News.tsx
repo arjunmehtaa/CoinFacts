@@ -31,6 +31,7 @@ const News = () => {
           data={data}
           renderItem={({ item }) => <NewsCard newsItem={item} />}
           keyExtractor={(item) => item.url}
+          initialNumToRender={10}
           contentContainerStyle={{ paddingBottom: paddings.medium }}
           keyboardShouldPersistTaps="handled"
           overScrollMode="never"

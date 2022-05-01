@@ -22,6 +22,7 @@ import HomeIcon from "./assets/icons/home.svg";
 import SearchIcon from "./assets/icons/search.svg";
 import SettingsIcon from "./assets/icons/settings.svg";
 import WatchlistIcon from "./assets/icons/watchlist.svg";
+import NewsIcon from "./assets/icons/news.svg";
 import theme from "./theme";
 import { createStackNavigator } from "@react-navigation/stack";
 import { initializeApp } from "firebase/app";
@@ -32,6 +33,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
+import News from "./screens/News";
 
 LogBox.ignoreLogs(["Setting a timer"]);
 LogBox.ignoreLogs(["AsyncStorage has been extracted from react-native core"]);
@@ -122,6 +124,19 @@ export default function App() {
           options={{
             tabBarIcon: ({ focused }) => (
               <SearchIcon
+                fill={focused ? colors.black : colors.lightGrey}
+                width={28}
+                height={28}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="News"
+          component={News}
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <NewsIcon
                 fill={focused ? colors.black : colors.lightGrey}
                 width={28}
                 height={28}

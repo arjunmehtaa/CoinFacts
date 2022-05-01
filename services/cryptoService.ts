@@ -81,3 +81,15 @@ export const getTrending = async () => {
     console.log(error.message);
   }
 };
+
+export const getNews = async () => {
+  try {
+    const response = await axios.get(
+      "https://newsapi.org/v2/everything?q=bitcoin%20OR%20ethereum%20OR%20crypto&apiKey=e50e72d3ba55451fb3279b817c99e473&pageSize=100"
+    );
+    const data = response.data;
+    return data.articles;
+  } catch (error) {
+    console.log(error.message);
+  }
+};

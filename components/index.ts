@@ -8,3 +8,4 @@ export { default as Heading } from "./Heading";
 export { default as ToastMessage } from "./ToastMessage";
 export { default as RoundedText } from "./RoundedText";
 export { default as Divider } from "./Divider";
+export { default as NewsCard } from "./NewsCard";

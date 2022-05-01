@@ -25,6 +25,7 @@
     "expo": "^44.0.6",
     "expo-cli": "^5.4.0",
     "expo-status-bar": "~1.2.0",
+    "expo-web-browser": "^10.1.1",
     "firebase": "^9.6.11",
     "lodash.filter": "^4.6.0",
     "moment": "^2.29.2",

@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import theme from "../theme";
+import { RefreshControl, SafeAreaView, StyleSheet } from "react-native";
 import {
-  FlatList,
-  RefreshControl,
-  SafeAreaView,
-  StyleSheet,
-} from "react-native";
-import { Card, LoadingIndicator, PlaceholderSearchBar } from "../components";
+  CoinFlatList,
+  LoadingIndicator,
+  PlaceholderSearchBar,
+} from "../components";
 import { getMarketData } from "../services";
 import { Coin } from "../model";
 import { useNavigation } from "@react-navigation/native";
@@ -43,14 +42,8 @@ const Home = () => {
               navigate("SearchStack" as never, { screen: "Search" } as never);
             }}
           />
-          <FlatList
+          <CoinFlatList
             data={data}
-            renderItem={({ item }) => <Card coin={item} />}
-            keyExtractor={(item) => item.id}
-            initialNumToRender={10}
-            contentContainerStyle={styles.flatlist}
-            keyboardShouldPersistTaps="handled"
-            overScrollMode="never"
             refreshControl={
               <RefreshControl
                 refreshing={loading}

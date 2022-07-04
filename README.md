@@ -62,5 +62,12 @@ CoinFacts is a feature-rich cryptocurrency tracking app for Android and iOS deve
   <img src="assets/screenshots/23.jpg" width="23%" />
 </p>
 
+## Error States
+<p float="left">
+  <img src="assets/screenshots/24.jpg" width="23%" />
+  <img src="assets/screenshots/25.jpg" width="23%" />
+  <img src="assets/screenshots/26.jpg" width="23%" />
+</p>
+
 ## Google Play Store and Apple App Store Link
 **Coming soon!**

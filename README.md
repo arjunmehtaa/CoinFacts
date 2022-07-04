@@ -27,6 +27,13 @@ CoinFacts is a feature-rich cryptocurrency tracking app for Android and iOS deve
 * **[CoinGecko API](https://www.coingecko.com/en/api)** - To retrieve live cryptocurrency and market data, obtain search results, get coin details and fetch trending coins.
 * **[News API](https://newsapi.org/)** - To retrieve latest news data (top 100 international news with keywords "crypto" and "cryptocurrency").
 
+## Architecture
+* The project follows the recommended React Native architecture which is simple and easy-to-understand.
+* Read more about the recommended project structure [here](https://reactnativeexample.com/react-native-project-structure/).
+<p float="left">
+  <img src="assets/screenshots/arch.png" width="98%" />
+</p>
+
 ## Login / Register Screen
 * Allows the user to sign-up/sign-in.
 * Signing-in enables the user to save coins to their portfolio/watchlist.

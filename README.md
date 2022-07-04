@@ -43,30 +43,30 @@ CoinFacts is a feature-rich cryptocurrency tracking app for Android and iOS deve
 
 ## Search Screen
 <p float="left">
-  <img src="assets/screenshots/15.jpg" width="23%" />
-  <img src="assets/screenshots/16.jpg" width="23%" />
-  <img src="assets/screenshots/17.jpg" width="23%" />
+  <img src="assets/screenshots/15.jpg" width="32%" />
+  <img src="assets/screenshots/16.jpg" width="32%" />
+  <img src="assets/screenshots/17.jpg" width="32%" />
 </p>
 
 ## News Screen
 <p float="left">
-  <img src="assets/screenshots/18.jpg" width="23%" />
-  <img src="assets/screenshots/19.jpg" width="23%" />
-  <img src="assets/screenshots/20.jpg" width="23%" />
+  <img src="assets/screenshots/18.jpg" width="32%" />
+  <img src="assets/screenshots/19.jpg" width="32%" />
+  <img src="assets/screenshots/20.jpg" width="32%" />
 </p>
 
 ## Watchlist Screen
 <p float="left">
-  <img src="assets/screenshots/21.jpg" width="23%" />
-  <img src="assets/screenshots/22.jpg" width="23%" />
-  <img src="assets/screenshots/23.jpg" width="23%" />
+  <img src="assets/screenshots/21.jpg" width="32%" />
+  <img src="assets/screenshots/22.jpg" width="32%" />
+  <img src="assets/screenshots/23.jpg" width="32%" />
 </p>
 
 ## Error States
 <p float="left">
-  <img src="assets/screenshots/24.jpg" width="23%" />
-  <img src="assets/screenshots/25.jpg" width="23%" />
-  <img src="assets/screenshots/26.jpg" width="23%" />
+  <img src="assets/screenshots/24.jpg" width="32%" />
+  <img src="assets/screenshots/25.jpg" width="32%" />
+  <img src="assets/screenshots/26.jpg" width="32%" />
 </p>
 
 ## Google Play Store and Apple App Store Link

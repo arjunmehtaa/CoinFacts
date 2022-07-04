@@ -27,5 +27,40 @@ CoinFacts is a feature-rich cryptocurrency tracking app for Android and iOS deve
 * **[CoinGecko API](https://www.coingecko.com/en/api)** - To retrieve live cryptocurrency and market data, obtain search results, get coin details and fetch trending coins.
 * **[News API](https://newsapi.org/)** - To retrieve latest news data (top 100 international news with keywords "crypto" and "cryptocurrency").
 
+## Login / Register Screen
+<p float="left">
+  <img src="assets/screenshots/9.jpg" width="23%" />
+  <img src="assets/screenshots/10.jpg" width="23%" />
+  <img src="assets/screenshots/11.jpg" width="23%" />
+</p>
+
+## Home Screen
+<p float="left">
+  <img src="assets/screenshots/12.jpg" width="23%" />
+  <img src="assets/screenshots/12.jpg" width="23%" />
+  <img src="assets/screenshots/14.jpg" width="23%" />
+</p>
+
+## Search Screen
+<p float="left">
+  <img src="assets/screenshots/15.jpg" width="23%" />
+  <img src="assets/screenshots/16.jpg" width="23%" />
+  <img src="assets/screenshots/17.jpg" width="23%" />
+</p>
+
+## News Screen
+<p float="left">
+  <img src="assets/screenshots/18.jpg" width="23%" />
+  <img src="assets/screenshots/19.jpg" width="23%" />
+  <img src="assets/screenshots/20.jpg" width="23%" />
+</p>
+
+## Watchlist Screen
+<p float="left">
+  <img src="assets/screenshots/21.jpg" width="23%" />
+  <img src="assets/screenshots/22.jpg" width="23%" />
+  <img src="assets/screenshots/23.jpg" width="23%" />
+</p>
+
 ## Google Play Store and Apple App Store Link
 **Coming soon!**

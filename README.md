@@ -25,7 +25,7 @@ CoinFacts is a feature-rich cryptocurrency tracking app for Android and iOS deve
 
 ## APIs Used
 * **[CoinGecko API](https://www.coingecko.com/en/api)** - To retrieve live cryptocurrency and market data, obtain search results, get coin details and fetch trending coins.
-* **[News API](https://newsapi.org/)** - To retrieve latest news data (top 100 international news with keywords "crypto" and "cryptocurrency")
+* **[News API](https://newsapi.org/)** - To retrieve latest news data (top 100 international news with keywords "crypto" and "cryptocurrency").
 
 ## Google Play Store and Apple App Store Link
 **Coming soon!**

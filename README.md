@@ -29,16 +29,16 @@ CoinFacts is a feature-rich cryptocurrency tracking app for Android and iOS deve
 
 ## Login / Register Screen
 <p float="left">
-  <img src="assets/screenshots/9.jpg" width="23%" />
-  <img src="assets/screenshots/10.jpg" width="23%" />
-  <img src="assets/screenshots/11.jpg" width="23%" />
+  <img src="assets/screenshots/9.jpg" width="32%" />
+  <img src="assets/screenshots/10.jpg" width="32%" />
+  <img src="assets/screenshots/11.jpg" width="32%" />
 </p>
 
 ## Home Screen
 <p float="left">
-  <img src="assets/screenshots/12.jpg" width="23%" />
-  <img src="assets/screenshots/12.jpg" width="23%" />
-  <img src="assets/screenshots/14.jpg" width="23%" />
+  <img src="assets/screenshots/12.jpg" width="32%" />
+  <img src="assets/screenshots/12.jpg" width="32%" />
+  <img src="assets/screenshots/14.jpg" width="32%" />
 </p>
 
 ## Search Screen

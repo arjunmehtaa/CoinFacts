@@ -34,7 +34,9 @@ CoinFacts is a feature-rich cryptocurrency tracking app for Android and iOS deve
   <img src="assets/screenshots/structure.png" width="98%" />
 </p>
 
-## Login / Register Screen
+## Screens
+
+### Login/Register Screen
 * Allows the user to sign-up/sign-in.
 * Signing-in enables the user to save coins to their portfolio/watchlist.
 * Sign-up/sign-in is handled by Firebase backend through `Firebase Authentication`.
@@ -45,7 +47,7 @@ CoinFacts is a feature-rich cryptocurrency tracking app for Android and iOS deve
   <img src="assets/screenshots/11.jpg" width="32%" />
 </p>
 
-## Home Screen
+### Home Screen
 * Displays the top 100 cyptocurrencies (coins) to the user (ranked by market cap).
 * Clicking on a coin card navigates the app to the `CoinDetails` screen.
 * A search bar is present on top at all times. Clicking it navigates to the `Search` screen.
@@ -55,7 +57,7 @@ CoinFacts is a feature-rich cryptocurrency tracking app for Android and iOS deve
   <img src="assets/screenshots/14.jpg" width="32%" />
 </p>
 
-## Search Screen
+### Search Screen
 * On navigating to this screen, the user is shown the top 7 trending coins.
 * The `SearchBar` can be used to search for a coin by its name.
 <p float="left">
@@ -64,7 +66,7 @@ CoinFacts is a feature-rich cryptocurrency tracking app for Android and iOS deve
   <img src="assets/screenshots/17.jpg" width="32%" />
 </p>
 
-## News Screen
+### News Screen
 * Presents the top 100 latest news related to `crypto` and `cryptocurrency` to the user.
 * Clicking a `NewsCard` launches its link in the in-app browser (in a separate window).
 <p float="left">
@@ -73,7 +75,7 @@ CoinFacts is a feature-rich cryptocurrency tracking app for Android and iOS deve
   <img src="assets/screenshots/20.jpg" width="32%" />
 </p>
 
-## Watchlist Screen
+### Watchlist Screen
 * List all the coins that the user has added to their watchlist/portfolio in the past.
 * The user `must be logged in` to access this feature.
 * A watchlist icon is present on the Coin Details screen to quickly add/remove a coin from the watchlist.
@@ -83,7 +85,7 @@ CoinFacts is a feature-rich cryptocurrency tracking app for Android and iOS deve
   <img src="assets/screenshots/23.jpg" width="32%" />
 </p>
 
-## Error States
+### Error States
 * When the searched query returns no results, an error message is shown to the user indicating this.
 * When the user's watchlist is empty, a message is presented to inform the user of this case.
 * An error screen is presented to the user when they try to add a coin to their watchlist when they are logged in as Guest.

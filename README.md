@@ -102,5 +102,5 @@ To run the app on your mobile device, follow these steps:-
   <img src="assets/screenshots/26.jpg" width="32%" />
 </p>
 
-## Google Play Store and Apple App Store Link
+## 🔗 Google Play Store and Apple App Store Link
 **Coming soon!**

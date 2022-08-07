@@ -18,7 +18,7 @@ To run the app on your mobile device, follow these steps:-
 * [Open this link](https://expo.dev/@arjunmehta/coinfacts-react-native)
 * Download the Expo Go app from the Google Play Store/Apple App Store
 * Scan the QR code in the link using the Camera app on your mobile device
-* The link would redirect you to the Expo app and launch the application
+* The link would redirect you to the Expo app and launch Coinfacts
 
 ## Stack
 * **[Expo](https://expo.dev/)**

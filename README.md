@@ -13,6 +13,13 @@ CoinFacts is a feature-rich cryptocurrency tracking app for Android and iOS deve
   <img src="assets/screenshots/8.jpg" width="23%" />
 </p>
 
+## How to run the app on your device
+To run the app on your mobile device, follow these steps:-
+* [Open this link](https://expo.dev/@arjunmehta/coinfacts-react-native)
+* Download the Expo Go app from the Google Play Store/Apple App Store
+* Scan the QR code in the link using the Camera app on your mobile device
+* The link would redirect you to the Expo app and launch the application
+
 ## Stack
 * **[Expo](https://expo.dev/)**
 * **[Typescript](https://www.typescriptlang.org/)**

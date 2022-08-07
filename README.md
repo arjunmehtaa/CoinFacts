@@ -1,4 +1,5 @@
-# CoinFacts
+<img src="assets/screenshots/header.png" width="100%" />
+
 CoinFacts is a feature-rich cryptocurrency tracking app for Android and iOS developed using React Native.
 
 ## 📸 Screenshots 

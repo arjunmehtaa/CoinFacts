@@ -61,7 +61,7 @@ To run the app on your mobile device, follow these steps:-
 * A search bar is present on top at all times. Clicking it navigates to the `Search` screen.
 <p float="left">
   <img src="assets/screenshots/12.jpg" width="32%" />
-  <img src="assets/screenshots/12.jpg" width="32%" />
+  <img src="assets/screenshots/13.jpg" width="32%" />
   <img src="assets/screenshots/14.jpg" width="32%" />
 </p>
 
